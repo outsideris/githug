@@ -1,0 +1,76 @@
+/**
+ * Copyright (c) 2013 JeongHoon Byun aka "Outsider", <http://blog.outsider.ne.kr/>
+ * Licensed under the MIT license.
+ * <http://outsider.mit-license.org/>
+ */
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  overflow-y: scroll;
+  background-color: #fff;
+  padding: 0;
+  color: #666;
+  font-family: 'Istok Web', sans-serif;
+  font-weight: 400;
+}
+
+.hide {
+  display: none;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+#loading {
+  z-index: 9999;
+  position: absolute;
+  margin-top: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+/* install */
+#install {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+#install header {
+  background-color: #ccc;
+  color: #454545;
+  padding: 10px 0;
+  background: -webkit-linear-gradient(top, #ccc, #ececec);
+  background: -moz-linear-gradient(top, #ccc, #ececec);
+  background: -ms-linear-gradient(top, #ccc, #ececec);
+  background: -o-linear-gradient(top, #ccc, #ececec);
+  background: linear-gradient(top, #ccc, #ececec);
+  -moz-box-shadow: 0 3px 3px 0 #d7d7d7;
+  box-shadow: 0 3px 3px 0 #d7d7d7;
+}
+
+#install header h1 {
+  margin: 0;
+}
+
+#install .contents {
+  padding-top: 20px;
+}
+
+#install footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5px;
+}
+
+#install footer i {
+  display: block;
+}
