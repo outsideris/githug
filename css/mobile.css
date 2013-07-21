@@ -60,6 +60,10 @@ body {
   margin: 0;
 }
 
+#install header h1 img {
+  margin-right: 5px;
+}
+
 #install .contents {
   padding-top: 20px;
 }
