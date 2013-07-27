@@ -3,9 +3,19 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-$(document).ready(function() {
-  if (!window.navigator.standalone) {
-    $('#install').show();
-    $('#loading').hide();
-  }
-});
+'use strict';
+
+angular.module('githug', [])
+  .config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+      when('/install', {templateUrl: 'partials/install.html', controller: InstallCtrl}).
+      when('/signin', {templateUrl: 'partials/signin.html', controller: SignInCtrl}).
+      otherwise({redirectTo: '/'});
+  }])
+  .run(function($location, $route) {
+    if (!window.navigator.standalone) {
+      $location.path('/install');
+    } else {
+      $location.path('/signin');
+    }
+  });

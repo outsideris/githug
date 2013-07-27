@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="githug">
 <head>
   <meta charset="utf-8">
   <title>Githug</title>
@@ -39,28 +39,13 @@
   <link rel="apple-touch-startup-image" href="img/startup.png" media="screen and (device-height: 480px)">
 </head>
 <body>
-  <div id="loading">
+  <div id="contents" ng-view>
     loading...
-
   </div>
-  <section id="install" class="hide">
-    <header>
-      <h1><img src="img/header-icon.png">Githug</h1>
-    </header>
-    <div class="contents">
-      <h2>Install Githug</h2>
-      If you are now on mobile,<br>
-      using <a href="https://github.com/" target="_blank">Github</a> is better.
-    </div>
-    <footer>
-      Tab the icon below<br>
-      to <span class="bold">Add to Home Screen</span>
-      <i class="icon-circle-arrow-down icon-3x"></i>
-    </footer>
-  </section>
 
   <script src="components/jquery/jquery.min.js"></script>
   <script src="components/angular/angular.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
 </body>
 </html>

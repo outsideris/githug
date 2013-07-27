@@ -19,16 +19,12 @@ body {
   font-weight: 400;
 }
 
-.hide {
-  display: none;
-}
-
 .bold {
   font-weight: 700;
 }
 
-#loading {
-  z-index: 9999;
+/* loading */
+#contents {
   position: absolute;
   margin-top: 0;
   height: 100%;
@@ -36,14 +32,8 @@ body {
   text-align: center;
 }
 
-/* install */
-#install {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-}
-
-#install header {
+/* header */
+header {
   background-color: #ccc;
   color: #454545;
   padding: 10px 0;
@@ -56,14 +46,15 @@ body {
   box-shadow: 0 3px 3px 0 #d7d7d7;
 }
 
-#install header h1 {
+header h1 {
   margin: 0;
 }
 
-#install header h1 img {
+header h1 img {
   margin-right: 5px;
 }
 
+/* install */
 #install .contents {
   padding-top: 20px;
 }
