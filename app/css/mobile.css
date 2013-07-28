@@ -12,8 +12,9 @@ body {
 
 body {
   overflow-y: scroll;
-  background-color: #fff;
+  background-color: #171717;
   padding: 0;
+  margin: 0;
   color: #666;
   font-family: 'Istok Web', sans-serif;
   font-weight: 400;
@@ -29,21 +30,19 @@ body {
   margin-top: 0;
   height: 100%;
   width: 100%;
+  padding: 0 10px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 /* header */
 header {
-  background-color: #ccc;
-  color: #454545;
-  padding: 10px 0;
-  background: -webkit-linear-gradient(top, #ccc, #ececec);
-  background: -moz-linear-gradient(top, #ccc, #ececec);
-  background: -ms-linear-gradient(top, #ccc, #ececec);
-  background: -o-linear-gradient(top, #ccc, #ececec);
-  background: linear-gradient(top, #ccc, #ececec);
-  -moz-box-shadow: 0 3px 3px 0 #d7d7d7;
-  box-shadow: 0 3px 3px 0 #d7d7d7;
+  background-color: #27AD89;
+  color: #E7F0EC;
+  padding: 3px 0;
+  border-radius: 0 0 10px 10px;
+  border: 2px solid #29C39C;
+  box-shadow: 3px 3px 30px 0 #171717;
 }
 
 header h1 {
@@ -57,15 +56,61 @@ header h1 img {
 /* install */
 #install .contents {
   padding-top: 20px;
+  color: #E7F0EC;
+}
+
+#install .contents a,
+#install .contents a:visited {
+  color: #E7F0EC;
+  font-weight: 700;
 }
 
 #install footer {
-  width: 100%;
   position: absolute;
   bottom: 0;
-  margin-bottom: 5px;
+  left: 0;
+  right: 0;
+  margin: 0 10px;
+}
+#install footer>div {
+  background-color: #27AD89;
+  color: #E7F0EC;
+  padding: 3px 0;
+  border-radius: 10px 10px 0 0;
+  border: 2px solid #29C39C;
 }
 
 #install footer i {
   display: block;
+}
+
+/* common */
+.btn {
+  display:inline-block;
+  zoom:1;
+  line-height:normal;
+  white-space:nowrap;
+  vertical-align:baseline;
+  text-align:center;
+  cursor:pointer;
+  -webkit-user-drag:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  background-color: #27AD89;
+  color: #E7F0EC;
+  border: 0;
+  border-radius: 5px;
+  border: 1px solid #29C39C;
+}
+
+.fill-width {
+  width: 100%;
+}
+
+.connect-github {
+  margin-top: 30%;
+  padding: 10px 0;
+  font-size: 15px;
 }

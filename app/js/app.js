@@ -8,8 +8,8 @@
 angular.module('githug', [])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.
-      when('/install', {templateUrl: 'partials/install.html', controller: InstallCtrl}).
-      when('/signin', {templateUrl: 'partials/signin.html', controller: SignInCtrl}).
+      when('/install', {templateUrl: 'partials/install.html'}).
+      when('/signin', {templateUrl: 'partials/signin.html'}).
       otherwise({redirectTo: '/'});
   }])
   .run(function($location, $route) {

@@ -6,6 +6,3 @@
 'use strict';
 
 /* Controllers */
-function InstallCtrl($scope) { }
-
-function SignInCtrl($scope) { }
