@@ -6,3 +6,14 @@
 'use strict';
 
 /* Controllers */
+function SignInCtrl($scope) {
+  OAuth.initialize('UVd2jSn4mQPcjwjVBONaPoYgcfA');
+
+  $scope.signIn = function(evt) {
+    OAuth.redirect('github', location.href);
+  }
+}
+
+function TimelineCtrl($scope) {
+
+}
