@@ -24,11 +24,23 @@
         } else {
           $location.path('/signin');
         }
+
+        // TODO: signin page show up when url redirected from oauth.io
         OAuth.callback('github', function(err, result) {
           if (err) { return alert(err); }
 
           env.user('token', result.access_token);
           env.user('tokenType', result.token_type);
+
+          github.getCurrentUserInfo(env.user('token'))
+                .success(function(data) {
+                  env.user('name', data.name);
+                  env.user('userid', data.login);
+                  env.user('avatar', data.avatar_url);
+                  env.user('apiurl', data.url);
+
+                  $location.path('/timeline');
+                });
         });
       }
     });
