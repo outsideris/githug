@@ -13,6 +13,8 @@
   "expr": true,
   "browser": true,
   "jquery": true,
+  "globalstrict": true,
   "predef": [
+    "angular"
   ]
 }

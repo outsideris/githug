@@ -12,7 +12,7 @@ angular.module('githug', [])
       when('/signin', {templateUrl: 'partials/signin.html'}).
       otherwise({redirectTo: '/'});
   }])
-  .run(function($location, $route) {
+  .run(function($location) {
     if (!window.navigator.standalone) {
       $location.path('/install');
     } else {
