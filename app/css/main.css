@@ -18,6 +18,26 @@ body {
   color: #666;
   font-family: 'Istok Web', sans-serif;
   font-weight: 400;
+  font-size: 15px;
+}
+
+h1 {
+  font-size: 25px;
+}
+h2 {
+  font-size: 23px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 15px;
+}
+h6 {
+  font-size: 13px;
 }
 
 .bold {

@@ -15,5 +15,5 @@ function SignInCtrl($scope) {
 }
 
 function TimelineCtrl($scope) {
-
+  $scope.title = "home";
 }
