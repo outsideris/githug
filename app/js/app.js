@@ -5,30 +5,31 @@
  */
 'use strict';
 
-angular.module('githug', [])
-  .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
-      when('/install', {templateUrl: 'partials/install.html'}).
-      when('/signin', {templateUrl: 'partials/signin.html', controller: SignInCtrl}).
-      when('/timeline', {templateUrl: 'partials/timeline.html', controller: TimelineCtrl}).
-      otherwise({redirectTo: '/'});
-  }])
-  .run(function($location) {
-    if (!window.navigator.standalone) {
-      $location.path('/install');
-    } else {
-      var isSignIn = localStorage.getItem('token');
-      if (isSignIn) {
-        $location.path('/timeline');
+(function() {
+  window.githubApp = angular.module('githug', [])
+    .config(['$routeProvider', function($routeProvider) {
+      $routeProvider.
+        when('/install', {templateUrl: 'partials/install.html'}).
+        when('/signin', {templateUrl: 'partials/signin.html', controller: SignInCtrl}).
+        when('/timeline', {templateUrl: 'partials/timeline.html', controller: TimelineCtrl}).
+        otherwise({redirectTo: '/'});
+    }])
+    .run(function($location, env, github) {
+      if (!window.navigator.standalone) {
+        $location.path('/install');
       } else {
-        $location.path('/signin');
-      }
-      OAuth.callback('github', function(err, result) {
-        if (err) { return alert(err); }
+        var isSignIn = localStorage.getItem('token');
+        if (isSignIn) {
+          $location.path('/timeline');
+        } else {
+          $location.path('/signin');
+        }
+        OAuth.callback('github', function(err, result) {
+          if (err) { return alert(err); }
 
-        localStorage.setItem('token', result.access_token);
-        localStorage.setItem('tokenType', result.token_type);
-        $location.path('/timeline');
-      });
-    }
-  });
+          env.user('token', result.access_token);
+          env.user('tokenType', result.token_type);
+        });
+      }
+    });
+})();
