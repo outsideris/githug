@@ -1,6 +1,18 @@
 <header>
+  <a href="#" class="leftButton"><i class="icon-align-justify"></i></a>
+  <a href="#" class="rightButton"><i class="icon-search"></i></a>
   <h1>{{title}}</h1>
 </header>
-<div>
-  this is time line
-</div>
+<section class="main-body">
+  <ul class="timeline">
+    <li ng-repeat="t in timeline">
+      {{t.actor.login}}
+      <ng-switch on="t.type">
+        <span ng-switch-when="CreateEvent">created {{t.payload.ref_type}} {{t.repo.name}}</span>
+        <span ng-switch-when="WatchEvent"> {{t.payload.action}} {{t.repo.name}}</span>
+        <span ng-switch-when="FollowEvent"> started following {{t.payload.target.login}}</span>
+        <span ng-switch-default> </span>
+      </ng-switch>
+    </li>
+  </ul>
+</section>

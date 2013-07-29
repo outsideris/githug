@@ -19,7 +19,11 @@ githubApp.factory('github', function($http, env) {
   return {
     getCurrentUserInfo: function(token) {
       var url = attachToken('https://api.github.com/user');
-      return $http({method: 'GET', url: url})
+      return $http.get(url)
+    },
+    getTimeline: function() {
+      var url = attachToken('https://api.github.com/users/' + env.user('userid') + '/received_events');
+      return $http.get(url)
     }
   }
 });

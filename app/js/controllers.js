@@ -14,6 +14,12 @@ function SignInCtrl($scope) {
   }
 }
 
-function TimelineCtrl($scope) {
+function TimelineCtrl($scope, github) {
   $scope.title = "Timeline";
+
+  github.getTimeline()
+        .success(function(data) {
+          console.log(data);
+          $scope.timeline = data;
+        });
 }
