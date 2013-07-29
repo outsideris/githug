@@ -6,12 +6,30 @@
 <section class="main-body">
   <ul class="timeline">
     <li ng-repeat="t in timeline">
-      {{t.actor.login}}
+      <a href="/users/{{t.actor.login}}">
+        <img ng-src="{{t.actor.avatar_url}}" class="avatar">
+      </a>
+      <a href="/users/{{t.actor.login}}" class="author">
+        <span>{{t.actor.login}}</span>
+      </a>
+
       <ng-switch on="t.type">
-        <span ng-switch-when="CreateEvent">created {{t.payload.ref_type}} {{t.repo.name}}</span>
-        <span ng-switch-when="WatchEvent"> {{t.payload.action}} {{t.repo.name}}</span>
-        <span ng-switch-when="FollowEvent"> started following {{t.payload.target.login}}</span>
-        <span ng-switch-default> </span>
+        <span ng-switch-when="CreateEvent" class="description">
+          created {{t.payload.ref_type}} <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
+        <span ng-switch-when="WatchEvent" class="description">
+          {{t.payload.action}} <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
+        <span ng-switch-when="FollowEvent" class="description">
+          started following <a href="/users/{{t.payload.target.login}}">{{t.payload.target.login}}</a>
+        </span>
+        <span ng-switch-when="ForkEvent" class="description">
+          forked <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+          to <a href="/repos/{{t.payload.forkee.full_name}}">{{t.payload.forkee.full_name}}</a>
+        </span>
+        <span ng-switch-when="PublicEvent" class="description">
+          open sourced <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
       </ng-switch>
     </li>
   </ul>

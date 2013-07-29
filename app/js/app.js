@@ -3,9 +3,9 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-'use strict';
-
 (function() {
+  'use strict';
+
   window.githubApp = angular.module('githug', [])
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider.
@@ -27,7 +27,7 @@
 
         // TODO: signin page show up when url redirected from oauth.io
         OAuth.callback('github', function(err, result) {
-          if (err) { return alert(err); }
+          if (err) { throw new Error(err); }
 
           env.user('token', result.access_token);
           env.user('tokenType', result.token_type);

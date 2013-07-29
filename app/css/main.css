@@ -7,37 +7,56 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
   overflow-y: scroll;
-  background-color: #171717;
+  background-color: #3D434B;
   padding: 0;
   margin: 0;
-  color: #666;
+  color: #BDB9B1;
   font-family: 'Istok Web', sans-serif;
   font-weight: 400;
   font-size: 15px;
 }
 
 h1 {
-  font-size: 25px;
-}
-h2 {
   font-size: 23px;
 }
-h3 {
+h2 {
   font-size: 20px;
 }
-h4 {
+h3 {
   font-size: 18px;
 }
-h5 {
+h4 {
   font-size: 15px;
 }
-h6 {
+h5 {
   font-size: 13px;
+}
+h6 {
+  font-size: 12px;
+}
+
+ul {
+  -webkit-padding-start: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a,
+a:visited {
+  color: #E7F0EC;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: #689AC0;
 }
 
 .bold {
@@ -57,12 +76,16 @@ h6 {
 
 /* header */
 header {
-  background-color: #27AD89;
-  color: #E7F0EC;
-  padding: 3px 0;
-  border-radius: 0 0 10px 10px;
-  border: 2px solid #29C39C;
+  background-color: #3A3B44;
+  padding: 2px 0;
+  border-bottom: 1px solid #28282E;
   box-shadow: 3px 3px 30px 0 #171717;
+  height: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 header h1 {
@@ -73,31 +96,67 @@ header h1 img {
   margin-right: 5px;
 }
 
-/* install */
-#install .contents {
-  padding-top: 20px;
-  color: #E7F0EC;
+header a,
+header a:visited {
+  color: #BDB9B1;
+  text-decoration: none;
 }
 
-#install .contents a,
-#install .contents a:visited {
-  color: #E7F0EC;
-  font-weight: 700;
+header a:hover,
+header a:active {
+  color: #689AC0;
+}
+
+header .leftButton {
+  float: left;
+  line-height: 30px;
+  width: 38px;
+  border-right: 1px solid #28282E;
+  position: relative;
+
+}
+
+header .leftButton:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  border-right: 1px solid #42424C;
+  display: block;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+header .rightButton {
+  float: right;
+  line-height: 30px;
+  width: 38px;
+  border-left: 1px solid #28282E;
+  position: relative;
+}
+
+header .rightButton:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  border-left: 1px solid #42424C;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+/* install */
+#install .contents {
+  padding-top: 50px;
 }
 
 #install footer {
+  background-color: #3A3B44;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: 0 10px;
-}
-#install footer>div {
-  background-color: #27AD89;
-  color: #E7F0EC;
-  padding: 3px 0;
-  border-radius: 10px 10px 0 0;
-  border: 2px solid #29C39C;
+  padding: 10px 0 3px;
 }
 
 #install footer i {
@@ -106,23 +165,23 @@ header h1 img {
 
 /* common */
 .btn {
-  display:inline-block;
-  zoom:1;
-  line-height:normal;
-  white-space:nowrap;
-  vertical-align:baseline;
-  text-align:center;
-  cursor:pointer;
-  -webkit-user-drag:none;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;
-  background-color: #27AD89;
+  display: inline-block;
+  zoom: 1;
+  line-height: normal;
+  white-space: nowrap;
+  vertical-align: baseline;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #689AC0;
   color: #E7F0EC;
   border: 0;
   border-radius: 5px;
-  border: 1px solid #29C39C;
+  border: 1px solid #6594BD;
 }
 
 .fill-width {
@@ -133,4 +192,61 @@ header h1 img {
   margin-top: 50%;
   padding: 10px 0;
   font-size: 15px;
+}
+
+.main-body {
+  margin-top: 50px;
+  padding-bottom: 10px;
+}
+
+/* timeline */
+.main-body li:first-child {
+  border-top: none;
+}
+
+.main-body li {
+  border-bottom: 1px solid #3A3B44;
+  border-top: 1px solid #484851;
+  text-align: left;
+  padding: 5px 10px 5px 10px;
+  position: relative;
+}
+
+.main-body li:last-child {
+  border-bottom: none;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-left: 2px solid #689AC0;
+  left: 30px;
+  height: 100%;
+}
+
+.timeline .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  float: left;
+  margin-right: 10px;
+  position: absolute;
+  top: 50%;
+  margin-top: -20px;
+}
+
+.timeline .author {
+  margin-left: 50px;
+}
+
+.timeline .description {
+  display: block;
+  font-size: 12px;
+  margin-left: 50px;
+  padding-left: 20px;
 }
