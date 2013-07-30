@@ -5,17 +5,19 @@
 </header>
 <section class="main-body">
   <ul class="timeline">
-    <li ng-repeat="t in timeline">
+    <li ng-repeat="t in timeline | timelineEvent">
       <a href="/users/{{t.actor.login}}">
         <img ng-src="{{t.actor.avatar_url}}" class="avatar">
       </a>
       <a href="/users/{{t.actor.login}}" class="author">
         <span>{{t.actor.login}}</span>
       </a>
+      <time>{{t.created_at | date:'short'}}</time>
 
       <ng-switch on="t.type">
         <span ng-switch-when="CreateEvent" class="description">
-          created {{t.payload.ref_type}} <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+          created {{t.payload.ref_type}} {{t.payload.ref}}
+          at <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
         </span>
         <span ng-switch-when="WatchEvent" class="description">
           {{t.payload.action}} <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
@@ -29,6 +31,59 @@
         </span>
         <span ng-switch-when="PublicEvent" class="description">
           open sourced <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
+        <span ng-switch-when="MemberEvent" class="description">
+          {{t.payload.action}}
+          <a href="/users/{{t.payload.member.login}}">{{t.payload.member.login}}</a>
+          to
+          <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
+        <span ng-switch-when="IssuesEvent" class="description">
+          {{t.payload.action}} issue
+          <a href="/repos/{{t.repo.name}}/issues/{{t.payload.issue.number}}">
+            {{t.repo.name}}#{{t.payload.issue.number}}
+          </a>
+        </span>
+        <span ng-switch-when="IssueCommentEvent" class="description">
+          commented on issue
+          <a href="/repos/{{t.repo.name}}/issues/{{t.payload.issue.number}}#issuecomment-{{t.payload.comment.id}}">
+            {{t.repo.name}}#{{t.payload.issue.number}}
+          </a>
+        </span>
+        <span ng-switch-when="PushEvent" class="description">
+          pushed to
+          <a href="/repos/{{t.repo.name}}/tree/{{t.payload.ref | stripRefs }}">
+            {{t.payload.ref | stripRefs}}
+          </a> at <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
+        <span ng-switch-when="PullRequestEvent" class="description">
+          {{t.payload.action}} pull request
+          <a href="/repos/{{t.repo.name}}/pulls/{{t.payload.pull_request.number}}">
+            {{t.repo.name}}#{{t.payload.pull_request.number}}
+          </a>
+        </span>
+        <span ng-switch-when="DeleteEvent" class="description">
+          deleted {{t.payload.ref_type}} {{t.payload.ref}}
+          at <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
+        </span>
+        <span ng-switch-when="CommitCommentEvent" class="description">
+          commented on commit at
+          <a href="/repos/{{t.repo.name}}/commit/{{t.payload.comment.commit.id}}#commitcomment-{{t.payload.comment.id}}">
+            {{t.repo.name}}@{{t.payload.comment.commit_id | shortSha}}
+          </a>
+        </span>
+        <span ng-switch-when="PullRequestReviewCommentEvent" class="description">
+          commented on pull request
+          <a href="/repos/{{t.repo.name}}/pulls/{{t.payload.pull_request.number}}#issuecomment-{{t.payload.comment.id}}">
+            {{t.repo.name}}#{{t.payload.pull_request.number}}
+          </a>
+        </span>
+        <span ng-switch-when="ReleaseEvent" class="description">
+          released
+          <a href="/repos/{{t.repo.name}}/releases/{{t.payload.release.tag_name}}">
+            {{t.payload.release.name}}
+          </a>
+          at <a href="/repos/{{t.repo.name}}">{{t.repo.name}}</a>
         </span>
       </ng-switch>
     </li>

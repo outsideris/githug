@@ -250,3 +250,9 @@ header .rightButton:after {
   margin-left: 50px;
   padding-left: 20px;
 }
+
+.timeline time {
+  font-size: 7px;
+  float: right;
+  margin-top: 2px;
+}
