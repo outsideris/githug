@@ -45,6 +45,7 @@
       }
     });
 
+  // filters
   githubApp
     .filter('stripRefs', function() {
       return function(text) {
@@ -61,6 +62,52 @@
     .filter('shortSha', function() {
       return function(sha) {
         return sha.substr(0, 10);
+      }
+    });
+
+  // derectives
+  githubApp
+    .directive('iscrollable', function($timeout, github) {
+      return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          // FIXME: find out better solution for timout
+          $timeout(function() {
+
+            var myScroll,
+                pullDownEl$ = $('#pullDown'),
+                pullDownIcon$ = pullDownEl$.find('.pullDownIcon');
+
+            function pullDownAction () {
+              pullDownIcon$.find('span').addClass('icon-refresh-animate');
+
+              github.getTimeline()
+                .success(function(data) {
+                  scope.timeline = data;
+                  setTimeout(function() {
+                    myScroll.refresh();
+                  }, 1000)
+                });
+            }
+
+            myScroll = new iScroll(elem[0], {
+              useTransition: true,
+              onRefresh: function () {
+                if (pullDownEl$.hasClass('loading')) {
+                  pullDownEl$.attr('class', '');
+                  pullDownIcon$.find('span').removeClass('icon-refresh-animate');
+                }
+              },
+              onScrollMove: function () {
+                if (this.y > 50 && !pullDownEl$.hasClass('flip')) {
+                  pullDownEl$.attr('class', 'loading');
+                  pullDownAction();
+                  this.minScrollY = 0;
+                }
+              }
+            });
+          }, 2000);
+        }
       }
     });
 })();

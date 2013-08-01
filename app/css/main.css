@@ -69,7 +69,7 @@ a:active {
   margin-top: 0;
   height: 100%;
   width: 100%;
-  padding: 0 10px;
+  padding: 0;
   text-align: center;
   box-sizing: border-box;
 }
@@ -194,17 +194,19 @@ header .rightButton:after {
   font-size: 15px;
 }
 
-.main-body {
-  margin-top: 50px;
+.main-pane {
   padding-bottom: 10px;
+  position: absolute;
+  top: 35px;
+  width: 100%;
 }
 
 /* timeline */
-.main-body li:first-child {
+.main-pane li:first-child {
   border-top: none;
 }
 
-.main-body li {
+.main-pane li {
   border-bottom: 1px solid #3A3B44;
   border-top: 1px solid #484851;
   text-align: left;
@@ -212,12 +214,13 @@ header .rightButton:after {
   position: relative;
 }
 
-.main-body li:last-child {
+.main-pane li:last-child {
   border-bottom: none;
 }
 
 .timeline {
   position: relative;
+  margin-top: 5px;
 }
 
 .timeline:before {
@@ -255,4 +258,67 @@ header .rightButton:after {
   font-size: 7px;
   float: right;
   margin-top: 2px;
+}
+
+/* pull to refresh */
+#pullDown {
+  height: 30px;
+  margin-top: -25px;
+  position: relative;
+  color: #E7F0EC;
+}
+
+.pullDownIcon span {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  background: #689AC0;
+  border-radius: 50px;
+  position: relative;
+  /*box-shadow: 0 0 10px;*/
+}
+
+.pullDownIcon span i {
+  -webkit-text-shadow: -1px -1px #71AAD5, 1px 1px #5783A4;
+  -moz-text-shadow: -1px -1px #71AAD5, 1px 1px #5783A4;
+  text-shadow: -1px -1px #71AAD5, 1px 1px #5783A4;
+}
+
+.icon-refresh-animate {
+  line-height: 20px;
+  -webkit-animation-name: rotateThis;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-name: rotateThis;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotateThis {
+  from {
+    -webkit-transform: scale( 1 ) rotate( 0deg );
+    transform: scale( 1 ) rotate( 0deg );
+  }
+  to {
+    -webkit-transform: scale( 1 ) rotate( 360deg );
+    transform: scale( 1 ) rotate( 360deg );
+  }
+}
+
+.pullDownLineWrap {
+  position: absolute;
+  left: 50%;
+  top: -560px;
+}
+
+.pullDownLine {
+  position: relative;
+  z-index: -1;
+  border-left: 6px solid #689AC0;
+  left: -50%;
+  height: 100%;
+  font-size: 400px;
 }
