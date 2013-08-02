@@ -4,25 +4,21 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-githubApp.factory('github', function($http, env) {
-  var attachToken = function(url) {
-    var token = env.user('token'),
-        tokenParam = '';
-
-    if (token) {
-      tokenParam = '?access_token=' + token;
-    }
-    return url + tokenParam;
-  };
+githubApp.factory('github', function($resource, env) {
 
   return {
-    getCurrentUserInfo: function() {
-      var url = attachToken('https://api.github.com/user');
-      return $http.get(url);
+    MyUserInfo: function() {
+      return $resource('https://api.github.com/user', {
+        access_token: env.user('token')
+      });
     },
-    getTimeline: function() {
-      var url = attachToken('https://api.github.com/users/' + env.user('userid') + '/received_events');
-      return $http.get(url);
+    Timeline: function() {
+      return $resource('https://api.github.com/users/:userId/received_events', {
+          userId: env.user('userid'),
+          access_token: env.user('token')
+        }, {
+          fetch: {method:'GET', isArray:true}
+        });
     }
   };
 });

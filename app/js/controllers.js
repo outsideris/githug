@@ -17,8 +17,8 @@ function TimelineCtrl($scope, github) {
   'use strict';
   $scope.title = "Timeline";
 
-  github.getTimeline()
-        .success(function(data) {
-          $scope.timeline = data;
-        });
+  // TODO: check out for cache machanism
+  github.Timeline().fetch(function(timeline) {
+    $scope.timeline = timeline;
+  });
 }

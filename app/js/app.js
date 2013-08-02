@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  window.githubApp = angular.module('githug', [])
+  window.githubApp = angular.module('githug', ['ngResource'])
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider.
         when('/install', {templateUrl: 'partials/install.html'}).
@@ -32,15 +32,15 @@
           env.user('token', result.access_token);
           env.user('tokenType', result.token_type);
 
-          github.getCurrentUserInfo(env.user('token'))
-                .success(function(data) {
-                  env.user('name', data.name);
-                  env.user('userid', data.login);
-                  env.user('avatar', data.avatar_url);
-                  env.user('apiurl', data.url);
+          github.MyUserInfo()
+            .get(function(data) {
+              env.user('name', data.name);
+              env.user('userid', data.login);
+              env.user('avatar', data.avatar_url);
+              env.user('apiurl', data.url);
 
-                  $location.path('/timeline');
-                });
+              $location.path('/timeline');
+            });
         });
       }
     });
@@ -74,19 +74,18 @@
           // FIXME: find out better solution for timout
           $timeout(function() {
 
+            // FIXME: leave off jquery DOM select
             var myScroll,
                 pullDownEl$ = $('#pullDown'),
                 pullDownIcon$ = pullDownEl$.find('.pullDownIcon');
 
-            function pullDownAction () {
+            function pullDownAction() {
               pullDownIcon$.find('span').addClass('icon-refresh-animate');
 
-              github.getTimeline()
-                .success(function(data) {
-                  scope.timeline = data;
-                  setTimeout(function() {
-                    myScroll.refresh();
-                  }, 1000)
+              github.Timeline()
+                .fetch(function(timeline) {
+                  scope.timeline = timeline;
+                  myScroll.refresh();
                 });
             }
 
