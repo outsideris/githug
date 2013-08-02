@@ -21,22 +21,22 @@ body {
 }
 
 h1 {
-  font-size: 23px;
-}
-h2 {
   font-size: 20px;
 }
-h3 {
+h2 {
   font-size: 18px;
 }
+h3 {
+  font-size: 16px;
+}
 h4 {
-  font-size: 15px;
+  font-size: 14px;
 }
 h5 {
-  font-size: 13px;
+  font-size: 12px;
 }
 h6 {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 ul {
@@ -88,12 +88,9 @@ header {
   z-index: 100;
 }
 
-header h1 {
+header h2 {
   margin: 0;
-}
-
-header h1 img {
-  margin-right: 5px;
+  line-height: 30px;
 }
 
 header a,
@@ -184,13 +181,9 @@ header .rightButton:after {
   border: 1px solid #6594BD;
 }
 
-.fill-width {
-  width: 100%;
-}
-
 .connect-github {
   margin-top: 50%;
-  padding: 10px 0;
+  padding: 10px 30px;
   font-size: 15px;
 }
 
@@ -211,8 +204,9 @@ header .rightButton:after {
   border-bottom: 1px solid #3A3B44;
   border-top: 1px solid #484851;
   text-align: left;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 15px 5px 10px;
   position: relative;
+  min-height: 50px;
 }
 
 .main-pane li:last-child {
@@ -277,7 +271,6 @@ header .rightButton:after {
   background: #689AC0;
   border-radius: 50px;
   position: relative;
-  /*box-shadow: 0 0 10px;*/
 }
 
 .pullDownIcon span i {
