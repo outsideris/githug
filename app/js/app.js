@@ -99,7 +99,7 @@
                 }
               },
               onScrollMove: function () {
-                if (this.y > 50 && !pullDownEl$.hasClass('flip')) {
+                if (this.y > 50 && !pullDownEl$.hasClass('loading')) {
                   pullDownEl$.attr('class', 'loading');
                   pullDownAction();
                   this.minScrollY = 0;
