@@ -85,7 +85,10 @@
               github.Timeline()
                 .fetch(function(timeline) {
                   scope.timeline = timeline;
-                  myScroll.refresh();
+                  // looks weired without delay in case of fast network
+                  setTimeout(function() {
+                    myScroll.refresh();
+                  }, 800);
                 });
             }
 
@@ -98,7 +101,7 @@
                 }
               },
               onScrollMove: function () {
-                if (this.y > 50 && !pullDownEl$.hasClass('loading')) {
+                if (this.y > 70 && !pullDownEl$.hasClass('loading')) {
                   pullDownEl$.attr('class', 'loading');
                   pullDownAction();
                   this.minScrollY = 0;
