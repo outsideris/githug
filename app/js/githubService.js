@@ -4,7 +4,7 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-githubApp.factory('github', function($resource, env) {
+githubApp.factory('githubService', function($resource, env) {
 
   return {
     MyUserInfo: function() {

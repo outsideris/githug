@@ -13,14 +13,14 @@ function SignInCtrl($scope) {
   };
 }
 
-function TimelineCtrl($scope, $timeout, github) {
+function TimelineCtrl($scope, $timeout, githubService) {
   'use strict';
   $scope.title = "Timeline";
   $scope.page = 2;
   $scope.scrollToEnd = false;
 
   // TODO: check out for cache machanism
-  var Timeline = github.Timeline();
+  var Timeline = githubService.Timeline();
   Timeline.fetch(function(timeline) {
     $scope.timeline = timeline;
   });

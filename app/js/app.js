@@ -14,7 +14,7 @@
         when('/timeline', {templateUrl: 'partials/timeline.html', controller: TimelineCtrl}).
         otherwise({redirectTo: '/'});
     }])
-    .run(function($location, env, github) {
+    .run(function($location, env, githubService) {
       if (!window.navigator.standalone) {
         $location.path('/install');
       } else {
@@ -32,7 +32,7 @@
           env.user('token', result.access_token);
           env.user('tokenType', result.token_type);
 
-          github.MyUserInfo()
+          githubService.MyUserInfo()
             .get(function(data) {
               env.user('name', data.name);
               env.user('userid', data.login);
@@ -67,7 +67,7 @@
 
   // derectives
   githubApp
-    .directive('iscrollable', function($timeout, github) {
+    .directive('iscrollable', function($timeout, githubService) {
       return {
         restrict: 'A',
         link: function(scope, elem, attr) {
@@ -82,7 +82,7 @@
             function pullDownAction() {
               pullDownIcon$.find('span').addClass('icon-refresh-animate');
 
-              github.Timeline()
+              githubService.Timeline()
                 .fetch(function(timeline) {
                   scope.timeline = timeline;
                 });
