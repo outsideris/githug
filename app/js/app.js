@@ -67,7 +67,7 @@
 
   // derectives
   githubApp
-    .directive('iscrollable', function($timeout, githubService) {
+    .directive('pullToRefresh', function($timeout, githubService) {
       return {
         restrict: 'A',
         link: function(scope, elem, attr) {
