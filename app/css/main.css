@@ -316,3 +316,7 @@ header .rightButton:after {
   height: 100%;
   font-size: 400px;
 }
+
+#scrollEnd > span {
+  display: inline-block;
+}

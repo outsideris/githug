@@ -3,7 +3,7 @@
   <a href="#" class="rightButton"><i class="icon-search"></i></a>
   <h2>{{title}}</h2>
 </header>
-<section class="main-pane" iscrollable>
+<section class="main-pane" iscrollable when-scrolled-to-end="loadMore()">
   <div id="scroller">
     <div id="pullDown">
       <span class="pullDownLineWrap">
@@ -97,7 +97,10 @@
         </ng-switch>
       </li>
     </ul>
-    <div id="pullUp">
+    <div id="scrollEnd">
+      <span class="icon-refresh-animate" ng-show="scrollToEnd">
+        <i class="icon-refresh icon-2x"></i>
+      </span>
     </div>
   </div>
 </section>

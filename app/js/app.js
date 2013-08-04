@@ -70,7 +70,7 @@
     .directive('iscrollable', function($timeout, github) {
       return {
         restrict: 'A',
-        link: function(scope, elem) {
+        link: function(scope, elem, attr) {
           // FIXME: find out better solution for timout
           $timeout(function() {
 
@@ -85,12 +85,15 @@
               github.Timeline()
                 .fetch(function(timeline) {
                   scope.timeline = timeline;
-                  // looks weired without delay in case of fast network
-                  setTimeout(function() {
-                    myScroll.refresh();
-                  }, 800);
                 });
             }
+
+            scope.$watch('timeline', function(newValue, oldValue) {
+              // looks weired without delay in case of fast network
+              setTimeout(function() {
+                myScroll.refresh();
+              }, 800);
+            });
 
             myScroll = new iScroll(elem[0], {
               useTransition: true,
@@ -105,6 +108,8 @@
                   pullDownEl$.attr('class', 'loading');
                   pullDownAction();
                   this.minScrollY = 0;
+                } else if (this.y < this.maxScrollY && !scope.scrollToEnd) {
+                  scope.$apply(attr.whenScrolledToEnd);
                 }
               }
             });
