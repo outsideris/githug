@@ -11,13 +11,16 @@ body {
 
 body {
   overflow-y: scroll;
-  background-color: #3D434B;
   padding: 0;
   margin: 0;
   color: #BDB9B1;
   font-family: 'Istok Web', sans-serif;
   font-weight: 400;
   font-size: 15px;
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+  background: #689AC0;
 }
 
 h1 {
@@ -63,15 +66,24 @@ a:active {
   font-weight: 700;
 }
 
-/* loading */
 #contents {
-  position: absolute;
   margin-top: 0;
   height: 100%;
   width: 100%;
   padding: 0;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
+}
+
+.wrapper {
+  background-color: #3D434B;
+  height: 100%;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 0 50px 0 #171717;
 }
 
 /* header */
@@ -81,7 +93,7 @@ header {
   border-bottom: 1px solid #28282E;
   box-shadow: 3px 3px 30px 0 #171717;
   height: 30px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -193,6 +205,7 @@ header .rightButton:after {
   top: 35px;
   bottom: 0;
   width: 100%;
+  background-color: #3D434B;
 }
 
 /* timeline */
@@ -319,4 +332,41 @@ header .rightButton:after {
 
 #scrollEnd > span {
   display: inline-block;
+}
+
+/* side menus */
+.sidemenu {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.sidemenu-left {
+  left: -240px;
+}
+
+.sidemenu-left-open {
+  left: 0px;
+}
+
+.wrapper.sidemenu-left-open {
+  -webkit-transform: scale(0.5);
+  left: 65%;
+}
+
+.overlay {
+  display: none;
+}
+
+.sidemenu-left-open .overlay {
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  position: relative;
 }

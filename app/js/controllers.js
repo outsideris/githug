@@ -13,7 +13,7 @@ function SignInCtrl($scope) {
   };
 }
 
-function TimelineCtrl($scope, $timeout, githubService) {
+function TimelineCtrl($scope, $timeout, githubService, sideMenuService) {
   'use strict';
   $scope.title = "Timeline";
   $scope.page = 2;
@@ -37,5 +37,13 @@ function TimelineCtrl($scope, $timeout, githubService) {
         }, 1000);
       });
     }
+  };
+
+  $scope.openLeftMenu = function() {
+    $scope.openSideMenu = sideMenuService.toggleLeft();
+  };
+
+  $scope.closeSideMenu = function() {
+    $scope.openSideMenu = sideMenuService.toggleLeft();
   }
 }
