@@ -4,7 +4,7 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-githubApp.factory('env', function() {
+githugApp.factory('env', function() {
   return {
     user: function(key, value) {
       if (value) {

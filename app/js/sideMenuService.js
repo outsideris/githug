@@ -4,7 +4,7 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-githubApp.factory('sideMenuService', function() {
+githugApp.factory('sideMenuService', function() {
 
   return {
     leftOpened: false,

@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  window.githubApp = angular.module('githug', ['ngResource'])
+  window.githugApp = angular.module('githug', ['ngResource'])
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider.
         when('/install', {templateUrl: 'partials/install.html'}).
@@ -46,27 +46,27 @@
     });
 
   // filters
-  githubApp
+  githugApp
     .filter('stripRefs', function() {
       return function(text) {
         return text.replace(/refs\/heads\//, '');
-      }
+      };
     })
     .filter('timelineEvent', function() {
       return function(events) {
         return _.filter(events, function(event) {
           return event.type !== 'GistEvent' && event.type !== 'GollumEvent';
         });
-      }
+      };
     })
     .filter('shortSha', function() {
       return function(sha) {
         return sha.substr(0, 10);
-      }
+      };
     });
 
   // derectives
-  githubApp
+  githugApp
     .directive('pullToRefresh', function($timeout, githubService) {
       return {
         restrict: 'A',
@@ -115,7 +115,7 @@
             });
           }, 2000);
         }
-      }
+      };
     })
     .directive('simpleScrollable', function($timeout, githubService) {
       return {
@@ -126,13 +126,13 @@
             vScrollbar:false
           });
         }
-      }
+      };
     })
     .directive('eatClick', function() {
       return function(scope, element) {
         $(element).click(function(event) {
           event.preventDefault();
         });
-      }
+      };
     });
 })();

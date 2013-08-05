@@ -4,7 +4,7 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-githubApp.factory('githubService', function($resource, env) {
+githugApp.factory('githubService', function($resource, env) {
 
   return {
     MyUserInfo: function() {
@@ -26,7 +26,7 @@ githubApp.factory('githubService', function($resource, env) {
         access_token: env.user('token')
       }, {
         fetch: {method:'GET', isArray:true}
-      })
+      });
     },
     MyOrgans: function() {
       return $resource('https://api.github.com/users/:userId/orgs', {
@@ -34,7 +34,7 @@ githubApp.factory('githubService', function($resource, env) {
         access_token: env.user('token')
       }, {
         fetch: {method:'GET', isArray:true}
-      })
+      });
     }
   };
 });

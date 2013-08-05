@@ -45,7 +45,7 @@ function TimelineCtrl($scope, $timeout, githubService, sideMenuService) {
 
   $scope.closeSideMenu = function() {
     $scope.openSideMenu = sideMenuService.toggleLeft();
-  }
+  };
 }
 
 function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
