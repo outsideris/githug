@@ -11,13 +11,20 @@ body {
 
 body {
   overflow-y: scroll;
-  background-color: #3D434B;
   padding: 0;
   margin: 0;
   color: #BDB9B1;
   font-family: 'Istok Web', sans-serif;
   font-weight: 400;
   font-size: 15px;
+  overflow-x: hidden;
+  position: relative;
+  left: 0;
+  background: url(../img/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 h1 {
@@ -63,15 +70,24 @@ a:active {
   font-weight: 700;
 }
 
-/* loading */
 #contents {
-  position: absolute;
   margin-top: 0;
   height: 100%;
   width: 100%;
   padding: 0;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
+}
+
+.wrapper {
+  background-color: #3D434B;
+  height: 100%;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 0 50px 0 #171717;
 }
 
 /* header */
@@ -81,7 +97,7 @@ header {
   border-bottom: 1px solid #28282E;
   box-shadow: 3px 3px 30px 0 #171717;
   height: 30px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -193,6 +209,7 @@ header .rightButton:after {
   top: 35px;
   bottom: 0;
   width: 100%;
+  background-color: #3D434B;
 }
 
 /* timeline */
@@ -319,4 +336,123 @@ header .rightButton:after {
 
 #scrollEnd > span {
   display: inline-block;
+}
+
+/* side menus */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 90%;
+  top: 0;
+  padding-top: 10%;
+}
+
+.sidemenu {
+  width: 100%;
+  height: 85%;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  color: #3D434B;
+}
+
+.sidemenu-left {
+  left: -240px;
+}
+
+.sidemenu-left-open {
+  left: 0px;
+}
+
+.wrapper.sidemenu-left-open {
+  -webkit-transform: scale(0.5);
+  left: 65%;
+}
+
+.overlay {
+  display: none;
+}
+
+.sidemenu-left-open .overlay {
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  position: relative;
+}
+
+.sidemenu ul {
+  width: 70%;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 13px;
+}
+
+.sidemenu .profile .text {
+  display:table-cell;
+  vertical-align: middle;
+  height: 30px;
+  padding-left: 5px;
+}
+
+.sidemenu .profile .avatar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  float: left;
+}
+
+.sidemenu .menus .group {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #BDB9B1;
+  background-color: rgba(61, 67, 75, 0.5);
+  padding-left: 5px;
+}
+
+.sidemenu .menus .menu {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(189, 185, 177, .5);
+}
+
+/* sidemenu effects */
+ul[data-liffect="slideLeft"] li {
+  opacity: 0;
+  position: relative;
+  -webkit-animation: slideLeft 300ms ease both;
+  -webkit-animation-play-state: paused;
+  -moz-animation: slideLeft 300ms ease both;
+  -moz-animation-play-state: paused;
+  -o-animation: slideLeft 300ms ease both;
+  -o-animation-play-state: paused;
+  animation: slideLeft 300ms ease both;
+  animation-play-state: paused;
+}
+
+ul[data-liffect="slideLeft"].play li {
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -o-animation-play-state: running;
+  animation-play-state: running;
+}
+
+@-webkit-keyframes slideLeft {
+  0% { opacity: 0; left: -30px; }
+  100% { opacity: 1; left: 0; }
+}
+
+@-moz-keyframes slideLeft {
+  0% { opacity: 0; left: -30px; }
+  100% { opacity: 1; left: 0; }
+}
+
+@-o-keyframes slideLeft {
+  0% { opacity: 0; left: -30px; }
+  100% { opacity: 1; left: 0; }
+}
+
+@keyframes slideLeft {
+  0% { opacity: 0; left: -30px; }
+  100% { opacity: 1; left: 0; }
 }

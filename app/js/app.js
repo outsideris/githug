@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  window.githubApp = angular.module('githug', ['ngResource'])
+  window.githugApp = angular.module('githug', ['ngResource'])
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider.
         when('/install', {templateUrl: 'partials/install.html'}).
@@ -14,7 +14,7 @@
         when('/timeline', {templateUrl: 'partials/timeline.html', controller: TimelineCtrl}).
         otherwise({redirectTo: '/'});
     }])
-    .run(function($location, env, github) {
+    .run(function($location, env, githubService) {
       if (!window.navigator.standalone) {
         $location.path('/install');
       } else {
@@ -32,7 +32,7 @@
           env.user('token', result.access_token);
           env.user('tokenType', result.token_type);
 
-          github.MyUserInfo()
+          githubService.MyUserInfo()
             .get(function(data) {
               env.user('name', data.name);
               env.user('userid', data.login);
@@ -46,28 +46,28 @@
     });
 
   // filters
-  githubApp
+  githugApp
     .filter('stripRefs', function() {
       return function(text) {
         return text.replace(/refs\/heads\//, '');
-      }
+      };
     })
     .filter('timelineEvent', function() {
       return function(events) {
         return _.filter(events, function(event) {
           return event.type !== 'GistEvent' && event.type !== 'GollumEvent';
         });
-      }
+      };
     })
     .filter('shortSha', function() {
       return function(sha) {
         return sha.substr(0, 10);
-      }
+      };
     });
 
   // derectives
-  githubApp
-    .directive('iscrollable', function($timeout, github) {
+  githugApp
+    .directive('pullToRefresh', function($timeout, githubService) {
       return {
         restrict: 'A',
         link: function(scope, elem, attr) {
@@ -82,7 +82,7 @@
             function pullDownAction() {
               pullDownIcon$.find('span').addClass('icon-refresh-animate');
 
-              github.Timeline()
+              githubService.Timeline()
                 .fetch(function(timeline) {
                   scope.timeline = timeline;
                 });
@@ -115,6 +115,50 @@
             });
           }, 2000);
         }
-      }
+      };
+    })
+    .directive('simpleScrollable', function() {
+      return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          scope.scroll = new iScroll(elem[0], {
+            useTransition: true,
+            vScrollbar:false
+          });
+        }
+      };
+    })
+    .directive('slideEffect', function($timeout) {
+      return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          var DELAY = 80;
+
+          scope.setSlide = function() {
+            elem.find('li').each(function(i) {
+              $(this).attr("style", "-webkit-animation-delay:" + i * DELAY + "ms;"
+                + "-moz-animation-delay:" + i * DELAY + "ms;"
+                + "-o-animation-delay:" + i * DELAY + "ms;"
+                + "animation-delay:" + i * DELAY + "ms;");
+            });
+          };
+          scope.playSlide = function() {
+            $(elem).addClass("play");
+          };
+          scope.resetSlide = function() {
+            $timeout(function() {
+              $(elem).removeClass("play");
+              $(elem).html($(elem).html());
+            }, 500);
+          }
+        }
+      };
+    })
+    .directive('eatClick', function() {
+      return function(scope, element) {
+        $(element).click(function(event) {
+          event.preventDefault();
+        });
+      };
     });
 })();
