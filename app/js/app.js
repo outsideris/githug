@@ -117,6 +117,17 @@
         }
       }
     })
+    .directive('simpleScrollable', function($timeout, githubService) {
+      return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          scope.scroll = new iScroll(elem[0], {
+            useTransition: true,
+            vScrollbar:false
+          });
+        }
+      }
+    })
     .directive('eatClick', function() {
       return function(scope, element) {
         $(element).click(function(event) {

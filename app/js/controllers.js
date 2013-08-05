@@ -47,3 +47,24 @@ function TimelineCtrl($scope, $timeout, githubService, sideMenuService) {
     $scope.openSideMenu = sideMenuService.toggleLeft();
   }
 }
+
+function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
+  $timeout(function() {
+    $scope.userName = env.user('name');
+    $scope.avatar = env.user('avatar');
+
+    githubService.MyRepos().fetch(function(repos) {
+      $scope.repos = repos;
+      $timeout(function() {
+        $scope.scroll.refresh();
+      }, 10);
+    });
+
+    githubService.MyOrgans().fetch(function(orgs) {
+      $scope.orgs = orgs;
+      $timeout(function() {
+        $scope.scroll.refresh();
+      }, 10);
+    });
+  }, 1000);
+}

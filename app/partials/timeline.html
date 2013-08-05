@@ -1,6 +1,33 @@
-<nav class="sidemenu sidemenu-left" ng-class="openSideMenu">
-    <h3>Menu</h3>
-</nav>
+<div class="background">
+  <nav class="sidemenu sidemenu-left" ng-class="openSideMenu" ng-controller="LeftSideMenuCtrl" simple-scrollable>
+    <div>
+      <ul class="profile">
+        <li class="avatar"><img ng-src="{{avatar}}"></li>
+        <li class="text">{{userName}}</li>
+      </ul>
+      <ul class="group"><li>My menus</li></ul>
+      <ul class="menu">
+        <li>Timeline</li>
+        <li>Issues</li>
+        <li>Followers</li>
+        <li>Following</li>
+        <li>Stared</li>
+      </ul>
+      <ul class="group"><li>My repositories</li></ul>
+      <ul class="menu">
+        <li ng-repeat="repo in repos">
+          {{repo.name}}
+        </li>
+      </ul>
+      <ul class="group"><li>My organizations</li></ul>
+      <ul class="menu">
+        <li ng-repeat="org in orgs">
+          {{org.login}}
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <div class="wrapper" ng-class="openSideMenu">
   <div class="overlay" ng-click="closeSideMenu()"></div>
