@@ -41,10 +41,12 @@ function TimelineCtrl($scope, $timeout, githubService, sideMenuService) {
 
   $scope.openLeftMenu = function() {
     $scope.openSideMenu = sideMenuService.toggleLeft();
+    $scope.$emit('playSlide');
   };
 
   $scope.closeSideMenu = function() {
     $scope.openSideMenu = sideMenuService.toggleLeft();
+    $scope.$emit('resetSlide');
   };
 }
 
@@ -57,6 +59,7 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
       $scope.repos = repos;
       $timeout(function() {
         $scope.scroll.refresh();
+        $scope.setSlide();
       }, 10);
     });
 
@@ -64,7 +67,15 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
       $scope.orgs = orgs;
       $timeout(function() {
         $scope.scroll.refresh();
+        $scope.setSlide();
       }, 10);
+    });
+
+    $scope.$parent.$on('playSlide', function() {
+      $scope.playSlide();
+    });
+    $scope.$parent.$on('resetSlide', function() {
+      $scope.resetSlide();
     });
   }, 1000);
 }

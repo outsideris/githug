@@ -5,23 +5,21 @@
         <li class="avatar"><img ng-src="{{avatar}}"></li>
         <li class="text">{{userName}}</li>
       </ul>
-      <ul class="group"><li>My menus</li></ul>
-      <ul class="menu">
-        <li>Timeline</li>
-        <li>Issues</li>
-        <li>Followers</li>
-        <li>Following</li>
-        <li>Stared</li>
-      </ul>
-      <ul class="group"><li>My repositories</li></ul>
-      <ul class="menu">
-        <li ng-repeat="repo in repos">
+      <ul class="menus" data-liffect="slideLeft" slide-effect>
+        <li class="group">My menus</li>
+        <li class="menu">Timeline</li>
+        <li class="menu">Issues</li>
+        <li class="menu">Followers</li>
+        <li class="menu">Following</li>
+        <li class="menu">Stared</li>
+
+        <li class="group">My repositories</li>
+        <li ng-repeat="repo in repos" class="menu">
           {{repo.name}}
         </li>
-      </ul>
-      <ul class="group"><li>My organizations</li></ul>
-      <ul class="menu">
-        <li ng-repeat="org in orgs">
+
+        <li class="group">My organizations</li>
+        <li ng-repeat="org in orgs" class="menu">
           {{org.login}}
         </li>
       </ul>

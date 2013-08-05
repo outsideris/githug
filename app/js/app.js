@@ -117,7 +117,7 @@
         }
       };
     })
-    .directive('simpleScrollable', function($timeout, githubService) {
+    .directive('simpleScrollable', function() {
       return {
         restrict: 'A',
         link: function(scope, elem) {
@@ -125,6 +125,32 @@
             useTransition: true,
             vScrollbar:false
           });
+        }
+      };
+    })
+    .directive('slideEffect', function($timeout) {
+      return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          var DELAY = 80;
+
+          scope.setSlide = function() {
+            elem.find('li').each(function(i) {
+              $(this).attr("style", "-webkit-animation-delay:" + i * DELAY + "ms;"
+                + "-moz-animation-delay:" + i * DELAY + "ms;"
+                + "-o-animation-delay:" + i * DELAY + "ms;"
+                + "animation-delay:" + i * DELAY + "ms;");
+            });
+          };
+          scope.playSlide = function() {
+            $(elem).addClass("play");
+          };
+          scope.resetSlide = function() {
+            $timeout(function() {
+              $(elem).removeClass("play");
+              $(elem).html($(elem).html());
+            }, 500);
+          }
         }
       };
     })
