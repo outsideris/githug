@@ -13,7 +13,7 @@ function SignInCtrl($scope) {
   };
 }
 
-function TimelineCtrl($scope, $timeout, githubService, sideMenuService) {
+function TimelineCtrl($scope, $timeout, githubService) {
   'use strict';
   $scope.title = "Timeline";
   $scope.page = 2;
@@ -40,14 +40,23 @@ function TimelineCtrl($scope, $timeout, githubService, sideMenuService) {
   };
 
   $scope.openLeftMenu = function() {
-    $scope.openSideMenu = sideMenuService.toggleLeft();
+    $scope.openSideMenu = true;
     $scope.$emit('playSlide');
   };
 
   $scope.closeSideMenu = function() {
-    $scope.openSideMenu = sideMenuService.toggleLeft();
+    $scope.openSideMenu = false;
     $scope.$emit('resetSlide');
   };
+
+  $scope.toggleSearchBar = function() {
+    console.log($scope.searchBar);
+    if ($scope.searchBar) {
+      $scope.searchBar = '';
+    } else {
+      $scope.searchBar = 'activeSearchBar';
+    }
+  }
 }
 
 function LeftSideMenuCtrl($scope, $timeout, env, githubService) {

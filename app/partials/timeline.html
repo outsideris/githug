@@ -27,13 +27,20 @@
   </nav>
 </div>
 
-<div class="wrapper" ng-class="openSideMenu">
+<div class="wrapper" ng-class="{'sidemenu-left-open': openSideMenu, activeSearchBar:searchBar}">
   <div class="overlay" ng-click="closeSideMenu()"></div>
   <header>
-    <a href="#" class="leftButton" ng-click="openLeftMenu()" eat-click><i class="icon-align-justify"></i></a>
-    <a href="#" class="rightButton"><i class="icon-search"></i></a>
+    <a href="#" class="leftButton" ng-click="openLeftMenu()" eat-click>
+      <i class="icon-align-justify"></i>
+    </a>
+    <a href="#" class="rightButton" ng-click="toggleSearchBar()" eat-click>
+      <i class="icon-search"></i>
+    </a>
     <h2>{{title}}</h2>
   </header>
+  <section class="searchBar">
+    <input type="text" placeholder="filter {{title | lowercase}}" ng-model="search">
+  </section>
   <section class="main-pane" pull-to-refresh when-scrolled-to-end="loadMore()">
     <div id="scroller">
       <div id="pullDown">
@@ -45,7 +52,7 @@
         </span>
       </div>
       <ul class="timeline">
-        <li ng-repeat="t in timeline | timelineEvent">
+        <li ng-repeat="t in timeline | timelineEvent | filter:search">
           <a href="/users/{{t.actor.login}}">
             <img ng-src="{{t.actor.avatar_url}}" class="avatar">
           </a>
