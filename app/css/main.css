@@ -163,6 +163,11 @@ header .rightButton:after {
   height: 100%;
 }
 /* install */
+#install {
+  background-color: #3D434B;
+  height: 100%;
+}
+
 #install .contents {
   padding-top: 50px;
 }
