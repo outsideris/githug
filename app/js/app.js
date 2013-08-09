@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  window.githugApp = angular.module('githug', ['ngResource'])
+  angular.module('githug', ['ngResource'])
     .config(['$routeProvider', function($routeProvider) {
       $routeProvider.
         when('/install', {templateUrl: 'partials/install.html'}).
@@ -46,7 +46,7 @@
     });
 
   // filters
-  githugApp
+  angular.module('githug')
     .filter('stripRefs', function() {
       return function(text) {
         return text.replace(/refs\/heads\//, '');
@@ -66,7 +66,7 @@
     });
 
   // derectives
-  githugApp
+  angular.module('githug')
     .directive('pullToRefresh', function($timeout, githubService) {
       return {
         restrict: 'A',
