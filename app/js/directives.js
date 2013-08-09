@@ -11,16 +11,15 @@ angular.module('githug')
         // FIXME: find out better solution for timout
         $timeout(function() {
 
-          // FIXME: leave off jquery DOM select
           var myScroll,
-              pullDownEl$ = $('#pullDown'),
+              pullDownEl$ = elem.find('#pullDown'),
               pullDownIcon$ = pullDownEl$.find('.pullDownIcon');
 
           function pullDownAction() {
             pullDownIcon$.find('span').addClass('icon-refresh-animate');
 
             githubService.Timeline()
-              .fetch(function(timeline) {
+              .query(function(timeline) {
                 scope.timeline = timeline;
               });
           }

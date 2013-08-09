@@ -17,24 +17,18 @@ angular.module('githug')
         return $resource('https://api.github.com/users/:userId/received_events', {
             userId: env.user('userid'),
             access_token: env.user('token')
-          }, {
-            fetch: {method:'GET', isArray:true}
           });
       },
       MyRepos: function() {
         return $resource('https://api.github.com/users/:userId/repos', {
           userId: env.user('userid'),
           access_token: env.user('token')
-        }, {
-          fetch: {method:'GET', isArray:true}
         });
       },
       MyOrgans: function() {
         return $resource('https://api.github.com/users/:userId/orgs', {
           userId: env.user('userid'),
           access_token: env.user('token')
-        }, {
-          fetch: {method:'GET', isArray:true}
         });
       }
     };

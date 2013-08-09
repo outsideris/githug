@@ -19,16 +19,15 @@ function TimelineCtrl($scope, $timeout, githubService) {
   $scope.page = 2;
   $scope.scrollToEnd = false;
 
-  // TODO: check out for cache machanism
   var Timeline = githubService.Timeline();
-  Timeline.fetch(function(timeline) {
+  Timeline.query(function(timeline) {
     $scope.timeline = timeline;
   });
 
   $scope.loadMore = function() {
     if (!$scope.scrollToEnd) {
       $scope.scrollToEnd = true;
-      Timeline.fetch({page: $scope.page}, function(timeline) {
+      Timeline.query({page: $scope.page}, function(timeline) {
         $scope.timeline = $scope.timeline.concat(timeline);
         $scope.page += 1;
         // prevent multiple loadMore once
@@ -41,16 +40,13 @@ function TimelineCtrl($scope, $timeout, githubService) {
 
   $scope.openLeftMenu = function() {
     $scope.openSideMenu = true;
-    $scope.$emit('playSlide');
   };
 
   $scope.closeSideMenu = function() {
     $scope.openSideMenu = false;
-    $scope.$emit('resetSlide');
   };
 
   $scope.toggleSearchBar = function() {
-    console.log($scope.searchBar);
     if ($scope.searchBar) {
       $scope.searchBar = '';
     } else {
@@ -64,7 +60,7 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
     $scope.userName = env.user('name');
     $scope.avatar = env.user('avatar');
 
-    githubService.MyRepos().fetch(function(repos) {
+    githubService.MyRepos().query(function(repos) {
       $scope.repos = repos;
       $timeout(function() {
         $scope.scroll.refresh();
@@ -72,7 +68,7 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
       }, 10);
     });
 
-    githubService.MyOrgans().fetch(function(orgs) {
+    githubService.MyOrgans().query(function(orgs) {
       $scope.orgs = orgs;
       $timeout(function() {
         $scope.scroll.refresh();
@@ -80,11 +76,12 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
       }, 10);
     });
 
-    $scope.$parent.$on('playSlide', function() {
-      $scope.playSlide();
-    });
-    $scope.$parent.$on('resetSlide', function() {
-      $scope.resetSlide();
+    $scope.$watch('openSideMenu', function(newValue, oldValue) {
+      if (newValue) {
+        $scope.playSlide();
+      } else {
+        $scope.resetSlide();
+      }
     });
   }, 1000);
 }
