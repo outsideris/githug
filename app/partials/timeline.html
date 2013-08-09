@@ -39,6 +39,7 @@
     <h2>{{title}}</h2>
   </header>
   <section class="searchBar">
+    <span class="decoration"><i class="icon-search"></i></span>
     <input type="text" placeholder="filter {{title | lowercase}}" ng-model="search">
   </section>
   <section class="main-pane" pull-to-refresh when-scrolled-to-end="loadMore()">
