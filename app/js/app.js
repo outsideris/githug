@@ -44,24 +44,4 @@
         });
       }
     });
-
-  // filters
-  angular.module('githug')
-    .filter('stripRefs', function() {
-      return function(text) {
-        return text.replace(/refs\/heads\//, '');
-      };
-    })
-    .filter('timelineEvent', function() {
-      return function(events) {
-        return _.filter(events, function(event) {
-          return event.type !== 'GistEvent' && event.type !== 'GollumEvent';
-        });
-      };
-    })
-    .filter('shortSha', function() {
-      return function(sha) {
-        return sha.substr(0, 10);
-      };
-    });
 })();
