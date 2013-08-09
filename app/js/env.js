@@ -4,14 +4,15 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
-githugApp.factory('env', function() {
-  return {
-    user: function(key, value) {
-      if (value) {
-        localStorage.setItem(key, value);
-      } else {
-        return localStorage.getItem(key);
+angular.module('githug')
+  .factory('env', function() {
+    return {
+      user: function(key, value) {
+        if (value) {
+          localStorage.setItem(key, value);
+        } else {
+          return localStorage.getItem(key);
+        }
       }
-    }
-  };
-});
+    };
+  });

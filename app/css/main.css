@@ -476,9 +476,8 @@ ul[data-liffect="slideLeft"].play li {
 /* search bar */
 .searchBar {
   position: absolute;
-  top: 5px;
+  top: 0;
   left: 0;
-  righ: ;t: 0;
   z-index: 90;
   background-color: #3A3B44;
   border-bottom: 1px solid #28282E;
@@ -488,17 +487,32 @@ ul[data-liffect="slideLeft"].play li {
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
   width: 100%;
+  padding: 1px 0;
+  font-size: 0;
+}
+
+.searchBar .decoration {
+  display: inline-block;
+  background-color: #3D434B;
+  line-height: 25px;
+  font-size: 14px;
+  border-radius: 15px 0 0 15px;
+  vertical-align: top;
+  margin-top: 2px;
+  padding-left: 5px;
 }
 
 .searchBar input {
+  display: inline-block;
   background-color: #3D434B;
   border: 0px;
-  border-radius: 15px;
-  width: 90%;
-  padding: 0 10px;
+  border-radius: 0 15px 15px 0;
+  width: 85%;
+  padding: 0 8px 0 5px;
   line-height: 25px;
-  font-size: 17px;
+  font-size: 13px;
   color: #BDB9B1;
+  margin-top: 2px;
 }
 
 .activeSearchBar .searchBar {
