@@ -96,4 +96,24 @@ angular.module('githug')
         event.preventDefault();
       });
     };
+  })
+  .directive('stats', function() {
+    return {
+      restrict: 'A',
+      link: function() {
+        var stats = new Stats();
+        stats.setMode(0);
+
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.bottom = '0px';
+        stats.domElement.style.zIndex = 9999;
+
+        document.body.appendChild( stats.domElement );
+
+        setInterval( function () {
+          stats.update();
+        }, 1000 / 60 );
+      }
+    }
   });
