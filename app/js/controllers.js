@@ -62,18 +62,16 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
 
     githubService.MyRepos().query(function(repos) {
       $scope.repos = repos;
-      $timeout(function() {
-        $scope.scroll.refresh();
-        $scope.setSlide();
-      }, 10);
     });
 
     githubService.MyOrgans().query(function(orgs) {
       $scope.orgs = orgs;
-      $timeout(function() {
-        $scope.scroll.refresh();
-        $scope.setSlide();
-      }, 10);
+    });
+
+
+    $scope.$watch('repos && orgs', function(newValue, oldValue) {
+      $scope.scroll.refresh();
+      $scope.setSlide();
     });
 
     $scope.$watch('openSideMenu', function(newValue, oldValue) {
