@@ -68,7 +68,6 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
       $scope.orgs = orgs;
     });
 
-
     $scope.$watch('repos && orgs', function(newValue, oldValue) {
       $scope.scroll.refresh();
       $scope.setSlide();
@@ -77,7 +76,7 @@ function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
     $scope.$watch('openSideMenu', function(newValue, oldValue) {
       if (newValue) {
         $scope.playSlide();
-      } else {
+      } else if (!newValue && oldValue){
         $scope.resetSlide();
       }
     });
