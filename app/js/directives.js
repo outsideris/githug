@@ -97,6 +97,16 @@ angular.module('githug')
       });
     };
   })
+  .directive('eatTouchMove', function() {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        $(element).on('touchmove', function(event) {
+          event.preventDefault();
+        });
+      }
+    }
+  })
   .directive('stats', function() {
     return {
       restrict: 'A',
