@@ -364,17 +364,28 @@ header .rightButton:after {
   width: 100%;
   height: 90%;
   top: 0;
-  padding-top: 10%;
+  padding-top: 5%;
 }
 
 .sidemenu {
   width: 70%;
-  height: 85%;
+  height: 90%;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #3D434B;
   margin: 0 auto;
+  -webkit-mask-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(1, rgba(0, 0, 0, 0)),
+      color-stop(0.9, rgba(0, 0, 0, 1)),
+      color-stop(0.1, rgba(0, 0, 0, 1)),
+      color-stop(0, rgba(0, 0, 0, 0))
+  );
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .sidemenu-left {
@@ -405,7 +416,11 @@ header .rightButton:after {
 .sidemenu ul {
   width: 98%;
   text-align: left;
-  font-size: 13px;
+  font-size: 17px;
+}
+
+.sidemenu .profile:active {
+  color: #BDB9B1;
 }
 
 .sidemenu .profile .text {
@@ -426,14 +441,20 @@ header .rightButton:after {
   margin-top: 10px;
   margin-bottom: 5px;
   color: #BDB9B1;
-  background-color: rgba(61, 67, 75, 0.5);
+  background-color: rgba(61, 67, 75, .5);
   padding-left: 5px;
+  font-size: 13px;
 }
 
 .sidemenu .menus .menu {
   padding-left: 10px;
-  margin-bottom: 5px;
+  padding-top: 5px;
   border-bottom: 1px solid rgba(189, 185, 177, .5);
+}
+
+.sidemenu .menus .menu:active {
+  color: #BDB9B1;
+  background-color: rgba(61, 67, 75, .7);
 }
 
 /* sidemenu effects */
