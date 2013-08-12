@@ -53,14 +53,10 @@ angular.module('githug')
       }
     };
   })
-  .directive('simpleScrollable', function() {
+  .directive('vScrollable', function() {
     return {
-      restrict: 'A',
+      restrict: 'AC',
       link: function(scope, elem) {
-        scope.scroll = new iScroll(elem[0], {
-          useTransition: true,
-          vScrollbar:false
-        });
       }
     };
   })
@@ -68,7 +64,7 @@ angular.module('githug')
     return {
       restrict: 'A',
       link: function(scope, elem) {
-        var DELAY = 80;
+        var DELAY = 30;
 
         scope.setSlide = function() {
           elem.find('li').each(function(i) {

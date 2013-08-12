@@ -224,6 +224,10 @@ header .rightButton:after {
   transition: all 0.3s ease;
 }
 
+.vScrollable {
+  overflow-y: auto;
+}
+
 /* timeline */
 .main-pane li:first-child {
   border-top: none;
@@ -364,12 +368,13 @@ header .rightButton:after {
 }
 
 .sidemenu {
-  width: 100%;
+  width: 70%;
   height: 85%;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #3D434B;
+  margin: 0 auto;
 }
 
 .sidemenu-left {
@@ -398,8 +403,7 @@ header .rightButton:after {
 }
 
 .sidemenu ul {
-  width: 70%;
-  margin: 0 auto;
+  width: 98%;
   text-align: left;
   font-size: 13px;
 }
