@@ -226,6 +226,7 @@ header .rightButton:after {
 
 .vScrollable {
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* timeline */

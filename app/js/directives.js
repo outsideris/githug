@@ -57,6 +57,18 @@ angular.module('githug')
     return {
       restrict: 'AC',
       link: function(scope, elem) {
+        elem.on('touchstart', function(event) {
+          var target = event.currentTarget;
+          if (target.scrollTop === 0) {
+            target.scrollTop = 1;
+          } else if (target.scrollTop === target.scrollHeight - target.offsetHeight) {
+            target.scrollTop -= 1;
+          }
+        });
+
+        elem.on('touchmove', function(event) {
+          event.stopImmediatePropagation();
+        });
       }
     };
   })
@@ -96,8 +108,8 @@ angular.module('githug')
   .directive('eatTouchMove', function() {
     return {
       restrict: 'A',
-      link: function(scope, element) {
-        $(element).on('touchmove', function(event) {
+      link: function(scope, elem) {
+        elem.on('touchmove', function(event) {
           event.preventDefault();
         });
       }
