@@ -387,6 +387,7 @@ header .rightButton:after {
   );
   padding-top: 5%;
   padding-bottom: 5%;
+  -webkit-user-select: none;
 }
 
 .sidemenu-left {
