@@ -168,6 +168,13 @@ angular.module('githug')
       }
     };
   })
+  .directive('fastClick', function() {
+    return function(scope, elem, attr) {
+      elem.fastClick(function (e) {
+        scope.$apply(attr.fastClick);
+      })
+    };
+  })
   .directive('eatClick', function() {
     return function(scope, element) {
       $(element).click(function(event) {
