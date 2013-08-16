@@ -20,6 +20,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           base: "",
+          hostname: "*",
           port: 9999
         }
       }

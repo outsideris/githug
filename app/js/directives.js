@@ -53,13 +53,91 @@ angular.module('githug')
       }
     };
   })
-  .directive('simpleScrollable', function() {
+  .directive('sideMenuScroll', function($timeout) {
     return {
-      restrict: 'A',
+      restrict: 'C',
       link: function(scope, elem) {
-        scope.scroll = new iScroll(elem[0], {
-          useTransition: true,
-          vScrollbar:false
+        var startX, startY,
+            touchedTimestamps = [],
+            scrollInited = true,
+            scrollEnded = true;
+
+        elem.on('touchstart', function(event) {
+          started = true;
+          scrollEnded = false;
+
+          var target = event.currentTarget;
+          if (target.scrollTop === 0) {
+            target.scrollTop = 1;
+          } else if (target.scrollTop === target.scrollHeight - target.offsetHeight) {
+            target.scrollTop -= 1;
+          }
+
+          startX = event.originalEvent.touches[0].clientX;
+          startY = event.originalEvent.touches[0].clientY;
+          if (scrollInited && $(event.target).hasClass('menu')) {
+            scope.select(event);
+          }
+        });
+
+        elem.on('touchmove', function(event) {
+          touchedTimestamps.push(new Date().getTime());
+          touchedTimestamps = _.rest(touchedTimestamps, touchedTimestamps.length - 3)
+
+          var newX = event.originalEvent.changedTouches[0].clientX,
+              newY = event.originalEvent.changedTouches[0].clientY,
+              deltaX = Math.abs(startX - newX);
+              deltaY = Math.abs(startY - newY);
+
+          if (deltaX > deltaY) {
+            event.preventDefault();
+          } else if (started && typeof scope.beforeScroll === 'function') {
+            // do something if some operation before scroll
+            scope.beforeScroll(event, elem);
+            started = false;
+          }
+
+          if (scrollInited) {
+            if (Math.abs(newY - startY) > 25) { scrollInited = false; }
+          }
+
+          event.stopImmediatePropagation();
+        });
+
+        elem.on('touchend', function(event) {
+          touchedTimestamps.push(new Date().getTime());
+
+          // check whether it's momentum scroll or not using velocity of last 4 touches
+          var startMomentumScroll = false;
+          if (touchedTimestamps.length > 3) {
+            var touchVelocity = [];
+            touchVelocity.push(touchedTimestamps[1] - touchedTimestamps[0]);
+            touchVelocity.push(touchedTimestamps[2] - touchedTimestamps[1]);
+            touchVelocity.push(touchedTimestamps[3] - touchedTimestamps[2])
+            touchedTimestamps = [];
+            startMomentumScroll = _.every(touchVelocity, function(x) { return x < 25});
+          }
+
+          if (startMomentumScroll) {
+            scrollInited = false;
+          } else {
+            // prevent click with wrong positon since browser doesn't update during momentum scroll
+            if (scrollInited) {
+              handler = $(event.target).attr('clickable');
+              if (typeof scope[handler] === 'function') {
+                scope[handler](event);
+              }
+            }
+            scrollInited = true;
+          }
+          scrollEnded = true;
+        });
+
+        elem.on('scroll', function(event) {
+          // scroll falg init when mementum scroll is ended without any user actions
+          if (scrollEnded && !scrollInited) {
+            scrollInited = true;
+          }
         });
       }
     };
@@ -68,7 +146,7 @@ angular.module('githug')
     return {
       restrict: 'A',
       link: function(scope, elem) {
-        var DELAY = 80;
+        var DELAY = 30;
 
         scope.setSlide = function() {
           elem.find('li').each(function(i) {
@@ -96,4 +174,34 @@ angular.module('githug')
         event.preventDefault();
       });
     };
+  })
+  .directive('eatTouchMove', function() {
+    return {
+      restrict: 'A',
+      link: function(scope, elem) {
+        elem.on('touchmove', function(event) {
+          event.preventDefault();
+        });
+      }
+    }
+  })
+  .directive('stats', function() {
+    return {
+      restrict: 'A',
+      link: function() {
+        var stats = new Stats();
+        stats.setMode(0);
+
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.bottom = '0px';
+        stats.domElement.style.zIndex = 9999;
+
+        document.body.appendChild( stats.domElement );
+
+        setInterval( function () {
+          stats.update();
+        }, 1000 / 60 );
+      }
+    }
   });

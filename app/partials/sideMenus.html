@@ -1,0 +1,28 @@
+<div class="background">
+  <nav class="sidemenu sidemenu-left sideMenuScroll" ng-class="openSideMenu" ng-controller="LeftSideMenuCtrl">
+    <div>
+      <ul class="profile">
+        <li class="avatar"><img ng-src="{{avatar}}"></li>
+        <li class="text">{{userName}}</li>
+      </ul>
+      <ul class="menus" data-liffect="slideLeft" slide-effect>
+        <li class="group">My menus</li>
+        <li class="menu" clickable="selected">Timeline</li>
+        <li class="menu" clickable="selected">Issues</li>
+        <li class="menu" clickable="selected">Followers</li>
+        <li class="menu" clickable="selected">Following</li>
+        <li class="menu" clickable="selected">Stared</li>
+
+        <li class="group">My repositories</li>
+        <li ng-repeat="repo in repos" class="menu" clickable="selected">
+          {{repo.name}}
+        </li>
+
+        <li class="group">My organizations</li>
+        <li ng-repeat="org in orgs" class="menu" clickable="selected">
+          {{org.login}}
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

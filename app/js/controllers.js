@@ -55,33 +55,46 @@ function TimelineCtrl($scope, $timeout, githubService) {
   }
 }
 
-function LeftSideMenuCtrl($scope, $timeout, env, githubService) {
+function LeftSideMenuCtrl($scope, $timeout, $element, env, githubService) {
   $timeout(function() {
     $scope.userName = env.user('name');
     $scope.avatar = env.user('avatar');
 
     githubService.MyRepos().query(function(repos) {
       $scope.repos = repos;
-      $timeout(function() {
-        $scope.scroll.refresh();
-        $scope.setSlide();
-      }, 10);
     });
 
     githubService.MyOrgans().query(function(orgs) {
       $scope.orgs = orgs;
-      $timeout(function() {
-        $scope.scroll.refresh();
-        $scope.setSlide();
-      }, 10);
+    });
+
+    $scope.$watch('repos && orgs', function(newValue, oldValue) {
+      $scope.setSlide();
     });
 
     $scope.$watch('openSideMenu', function(newValue, oldValue) {
       if (newValue) {
         $scope.playSlide();
-      } else {
+      } else if (!newValue && oldValue){
         $scope.resetSlide();
       }
     });
+
+    $scope.select = function(event) {
+      console.log('select');
+      $element.find('.menu').removeClass('selected');
+      $(event.target).addClass('selected');
+    }
+
+    $scope.selected = function(event) {
+      $element.find('.menu').removeClass('selected');
+      $(event.target).addClass('selected');
+      console.log('selected: ' + $(event.target).text())
+//      alert('selected: ' + $(event.target).text())
+    }
+
+    $scope.beforeScroll = function(event, elem) {
+      elem.find('.menu').removeClass('selected');
+    }
   }, 1000);
 }
