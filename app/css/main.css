@@ -224,7 +224,7 @@ header .rightButton:after {
   transition: all 0.3s ease;
 }
 
-.vScrollable {
+.sideMenuScroll {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -454,7 +454,7 @@ header .rightButton:after {
   border-bottom: 1px solid rgba(189, 185, 177, .5);
 }
 
-.sidemenu .menus .menu:active {
+.sidemenu .menus .menu.selected {
   color: #BDB9B1;
   background-color: rgba(61, 67, 75, .7);
 }

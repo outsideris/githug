@@ -53,21 +53,84 @@ angular.module('githug')
       }
     };
   })
-  .directive('vScrollable', function() {
+  .directive('sideMenuScroll', function($timeout) {
     return {
-      restrict: 'AC',
+      restrict: 'C',
       link: function(scope, elem) {
+        var startY,
+            touchedTimestamps = [],
+            scrollInited = true,
+            scrollEnded = true;
+
         elem.on('touchstart', function(event) {
+          started = true;
+          scrollEnded = false;
+
           var target = event.currentTarget;
           if (target.scrollTop === 0) {
             target.scrollTop = 1;
           } else if (target.scrollTop === target.scrollHeight - target.offsetHeight) {
             target.scrollTop -= 1;
           }
+
+          startY = event.originalEvent.touches[0].clientY;
+          if (scrollInited && $(event.target).hasClass('menu')) {
+            scope.select(event);
+          }
         });
 
         elem.on('touchmove', function(event) {
+          touchedTimestamps.push(new Date().getTime());
+          touchedTimestamps = _.rest(touchedTimestamps, touchedTimestamps.length - 3)
+
+          // do something if some operation before scroll
+          if (started && typeof scope.beforeScroll === 'function') {
+            scope.beforeScroll(event, elem);
+          }
+          started = false;
+
+          if (scrollInited) {
+            var y = event.originalEvent.changedTouches[0].clientY;
+            if (Math.abs(y - startY) > 25) { scrollInited = false; }
+          }
+
           event.stopImmediatePropagation();
+        });
+
+        elem.on('touchend', function(event) {
+          touchedTimestamps.push(new Date().getTime());
+
+          // check whether it's momentum scroll or not using velocity of last 4 touches
+          var startMomentumScroll = false;
+          if (touchedTimestamps.length > 3) {
+            var touchVelocity = [];
+            touchVelocity.push(touchedTimestamps[1] - touchedTimestamps[0]);
+            touchVelocity.push(touchedTimestamps[2] - touchedTimestamps[1]);
+            touchVelocity.push(touchedTimestamps[3] - touchedTimestamps[2])
+            touchedTimestamps = [];
+            startMomentumScroll = _.every(touchVelocity, function(x) { return x < 25});
+          }
+
+          if (startMomentumScroll) {
+            scrollInited = false;
+          } else {
+            // prevent click with wrong positon since browser doesn't update during momentum scroll
+            if (scrollInited) {
+              handler = $(event.target).attr('clickable');
+              if (typeof scope[handler] === 'function') {
+                scope[handler](event);
+              }
+            }
+            scrollInited = true;
+          }
+          scrollEnded = true;
+        });
+
+        elem.on('scroll', function(event) {
+          // scroll falg init when mementum scroll is ended without any user actions
+          if (scrollEnded && !scrollInited) {
+            scrollInited = true;
+          }
         });
       }
     };
