@@ -57,7 +57,7 @@ angular.module('githug')
     return {
       restrict: 'C',
       link: function(scope, elem) {
-        var startY,
+        var startX, startY,
             touchedTimestamps = [],
             scrollInited = true,
             scrollEnded = true;
@@ -73,6 +73,7 @@ angular.module('githug')
             target.scrollTop -= 1;
           }
 
+          startX = event.originalEvent.touches[0].clientX;
           startY = event.originalEvent.touches[0].clientY;
           if (scrollInited && $(event.target).hasClass('menu')) {
             scope.select(event);
@@ -83,15 +84,21 @@ angular.module('githug')
           touchedTimestamps.push(new Date().getTime());
           touchedTimestamps = _.rest(touchedTimestamps, touchedTimestamps.length - 3)
 
-          // do something if some operation before scroll
-          if (started && typeof scope.beforeScroll === 'function') {
+          var newX = event.originalEvent.changedTouches[0].clientX,
+              newY = event.originalEvent.changedTouches[0].clientY,
+              deltaX = Math.abs(startX - newX);
+              deltaY = Math.abs(startY - newY);
+
+          if (deltaX > deltaY) {
+            event.preventDefault();
+          } else if (started && typeof scope.beforeScroll === 'function') {
+            // do something if some operation before scroll
             scope.beforeScroll(event, elem);
+            started = false;
           }
-          started = false;
 
           if (scrollInited) {
-            var y = event.originalEvent.changedTouches[0].clientY;
-            if (Math.abs(y - startY) > 25) { scrollInited = false; }
+            if (Math.abs(newY - startY) > 25) { scrollInited = false; }
           }
 
           event.stopImmediatePropagation();
