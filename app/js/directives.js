@@ -211,4 +211,16 @@ angular.module('githug')
         }, 1000 / 60 );
       }
     }
+  })
+  .directive('fallbackAvatar', function() {
+    return {
+      restrict: 'A',
+      link: function(scope, elem, attr) {
+        elem.on('error', function(e) {
+          $(e.target).attr('src', "https://identicons.github.com/" + attr.fallbackAvatar + ".png");
+        });
+
+      }
+    }
+
   });

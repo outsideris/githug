@@ -28,7 +28,7 @@
       <ul class="timeline">
         <li ng-repeat="t in timeline | timelineEvent | filter:search">
           <a href="/users/{{t.actor.login}}">
-            <img ng-src="{{t.actor.avatar_url}}" class="avatar">
+            <img ng-src="{{t.actor.avatar_url}}" fallback-avatar="{{t.actor.gravatar_id}}" class="avatar">
           </a>
           <a href="/users/{{t.actor.login}}" class="author">
             <span>{{t.actor.login}}</span>
