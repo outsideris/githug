@@ -4,52 +4,22 @@
  * <http://outsider.mit-license.org/>
  */
 angular.module('githug')
-  .directive('pullToRefresh', function($timeout, githubService) {
+  .directive('pullToRefresh', function() {
     return {
       restrict: 'A',
       link: function(scope, elem, attr) {
-        // FIXME: find out better solution for timout
-        $timeout(function() {
-
-          var myScroll,
-              pullDownEl$ = elem.find('#pullDown'),
-              pullDownIcon$ = pullDownEl$.find('.pullDownIcon');
-
-          function pullDownAction() {
-            pullDownIcon$.find('span').addClass('icon-refresh-animate');
-
-            githubService.Timeline()
-              .query(function(timeline) {
-                scope.timeline = timeline;
-              });
+        elem.on('touchstart', function(event) {
+          var target = event.currentTarget;
+          if (target.scrollTop === 0) {
+            target.scrollTop = 1;
+          } else if (target.scrollTop === target.scrollHeight - target.offsetHeight) {
+            target.scrollTop -= 1;
           }
+        });
 
-          scope.$watch('timeline', function(newValue, oldValue) {
-            // looks weired without delay in case of fast network
-            setTimeout(function() {
-              myScroll.refresh();
-            }, 800);
-          });
-
-          myScroll = new iScroll(elem[0], {
-            useTransition: true,
-            onRefresh: function () {
-              if (pullDownEl$.hasClass('loading')) {
-                pullDownEl$.attr('class', '');
-                pullDownIcon$.find('span').removeClass('icon-refresh-animate');
-              }
-            },
-            onScrollMove: function () {
-              if (this.y > 70 && !pullDownEl$.hasClass('loading')) {
-                pullDownEl$.attr('class', 'loading');
-                pullDownAction();
-                this.minScrollY = 0;
-              } else if (this.y < this.maxScrollY && !scope.scrollToEnd) {
-                scope.$apply(attr.whenScrolledToEnd);
-              }
-            }
-          });
-        }, 2000);
+        elem.on('touchmove', function(event) {
+          event.stopImmediatePropagation();
+        });
       }
     };
   })

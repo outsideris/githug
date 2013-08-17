@@ -81,7 +81,6 @@ function LeftSideMenuCtrl($scope, $timeout, $element, env, githubService) {
     });
 
     $scope.select = function(event) {
-      console.log('select');
       $element.find('.menu').removeClass('selected');
       $(event.target).addClass('selected');
     }
@@ -89,7 +88,6 @@ function LeftSideMenuCtrl($scope, $timeout, $element, env, githubService) {
     $scope.selected = function(event) {
       $element.find('.menu').removeClass('selected');
       $(event.target).addClass('selected');
-      console.log('selected: ' + $(event.target).text())
 //      alert('selected: ' + $(event.target).text())
     }
 
