@@ -88,6 +88,7 @@ a:active {
   transition: all 0.3s ease;
   position: relative;
   box-shadow: 0 0 50px 0 #171717;
+  overflow: hidden;
 }
 
 /* header */
@@ -214,14 +215,17 @@ header .rightButton:after {
 
 .main-pane {
   padding-bottom: 10px;
-  position: absolute;
+  position: relative;
   top: 35px;
   bottom: 0;
   width: 100%;
+  height: 100%;
   background-color: #3D434B;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sideMenuScroll {
@@ -252,8 +256,9 @@ header .rightButton:after {
 }
 
 .timeline {
-  position: relative;
   margin-top: 5px;
+  min-height: 100%;
+  -webkit-transform: translateZ(0);
 }
 
 .timeline:before {
@@ -294,24 +299,64 @@ header .rightButton:after {
 }
 
 /* pull to refresh */
-#pullDown {
-  height: 30px;
-  margin-top: -25px;
-  position: relative;
+.pullToRefresh {
+  height: 35px;
+  width: 100%;
   color: #E7F0EC;
+  position: absolute;
+  top: -38px;
+  left: 0;
+  z-index: 9999;
+  line-height: 35px;
 }
 
-.pullDownIcon span {
+.pullToRefresh.loading {
+  top: -3px;
+}
+
+.pullToRefreshContents {
+  position: absolute;
+  bottom: 0;
+  left: 21px;
+  height: 25px;
+}
+
+.pullToRefresh .pull { display: inline; }
+.pullToRefresh .release,
+.pullToRefresh .loading { display: none; }
+.pullToRefresh .arrow { display: inline; }
+.pullToRefresh .spinner { display: none; }
+
+.pullToRefresh.release .release { display: inline; }
+.pullToRefresh.release .pull,
+.pullToRefresh.release .loading { display: none; }
+.pullToRefresh.release .arrow { display: inline; }
+.pullToRefresh.release .spinner { display: none; }
+.pullToRefresh.release .icon {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+.pullToRefresh.loading .loading { display: inline; }
+.pullToRefresh.loading .pull,
+.pullToRefresh.loading .release { display: none; }
+.pullToRefresh.loading .arrow { display: none; }
+.pullToRefresh.loading .spinner { display: inline; }
+
+.pulltoRefreshMessage { margin-left: 10px; }
+
+.pullToRefresh .icon {
   display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  height: 20px;
-  background: #689AC0;
-  border-radius: 50px;
-  position: relative;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.pullDownIcon span i {
+.pullToRefresh i {
+  background-color: #689AC0;
+  padding: 2px 3.5px;
+  border-radius: 20px;
   -webkit-text-shadow: -1px -1px #71AAD5, 1px 1px #5783A4;
   -moz-text-shadow: -1px -1px #71AAD5, 1px 1px #5783A4;
   text-shadow: -1px -1px #71AAD5, 1px 1px #5783A4;
@@ -340,19 +385,12 @@ header .rightButton:after {
   }
 }
 
-.pullDownLineWrap {
-  position: absolute;
-  left: 50%;
-  top: -560px;
-}
-
 .pullDownLine {
-  position: relative;
   z-index: -1;
-  border-left: 6px solid #689AC0;
-  left: -50%;
-  height: 100%;
-  font-size: 400px;
+  background-color: #689AC0;
+  height: 175px;
+  width: 6px;
+  margin: 0 auto;
 }
 
 #scrollEnd > span {

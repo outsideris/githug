@@ -4,52 +4,71 @@
  * <http://outsider.mit-license.org/>
  */
 angular.module('githug')
-  .directive('pullToRefresh', function($timeout, githubService) {
+  .directive('pullToRefresh', function($timeout) {
     return {
       restrict: 'A',
-      link: function(scope, elem, attr) {
-        // FIXME: find out better solution for timout
-        $timeout(function() {
+      link: function(scope, elem) {
+        var html = '<div class="pullToRefresh">' +
+                      '<div class="pullToRefreshContents">' +
+                        '<span class="icon">' +
+                          '<i class="arrow icon-circle-arrow-down"></i>' +
+                          '<i class="spinner icon-refresh"></i>' +
+                        '</span>' +
+                        '<span class="pulltoRefreshMessage pull">Pull to refresh</span>' +
+                        '<span class="pulltoRefreshMessage release">Release to refresh</span>' +
+                        '<span class="pulltoRefreshMessage loading">Loading...</span>' +
+                      '</div>' +
+                    '</div>';
+        elem.prepend(html);
 
-          var myScroll,
-              pullDownEl$ = elem.find('#pullDown'),
-              pullDownIcon$ = pullDownEl$.find('.pullDownIcon');
+        var pullToRefresh$ = elem.find('.pullToRefresh'),
+            ptrHeight = pullToRefresh$.height(),
+            releaseHeight = ptrHeight + 10,
+            arrow$ = pullToRefresh$.find('.arrow'),
+            icon$ = pullToRefresh$.find('.icon'),
+            contents$ = pullToRefresh$.next();
 
-          function pullDownAction() {
-            pullDownIcon$.find('span').addClass('icon-refresh-animate');
-
-            githubService.Timeline()
-              .query(function(timeline) {
-                scope.timeline = timeline;
-              });
+        elem.on('touchstart', function(event) {
+          var target = event.currentTarget;
+          if (target.scrollTop === 0) {
+            target.scrollTop = 1;
+          } else if (target.scrollTop === target.scrollHeight - target.offsetHeight) {
+            target.scrollTop -= 1;
           }
+        })
+        .on('touchmove', function(event) {
+          event.stopPropagation();
 
-          scope.$watch('timeline', function(newValue, oldValue) {
-            // looks weired without delay in case of fast network
-            setTimeout(function() {
-              myScroll.refresh();
-            }, 800);
-          });
+          var top = elem.scrollTop();
+          if (pullToRefresh$.hasClass('loading')) { return true; }
 
-          myScroll = new iScroll(elem[0], {
-            useTransition: true,
-            onRefresh: function () {
-              if (pullDownEl$.hasClass('loading')) {
-                pullDownEl$.attr('class', '');
-                pullDownIcon$.find('span').removeClass('icon-refresh-animate');
+          if (top) {
+            if (-top > releaseHeight) {
+              if (!pullToRefresh$.hasClass('release')) {
+                pullToRefresh$.removeClass('loading').addClass('release');
               }
-            },
-            onScrollMove: function () {
-              if (this.y > 70 && !pullDownEl$.hasClass('loading')) {
-                pullDownEl$.attr('class', 'loading');
-                pullDownAction();
-                this.minScrollY = 0;
-              } else if (this.y < this.maxScrollY && !scope.scrollToEnd) {
-                scope.$apply(attr.whenScrolledToEnd);
+            } else if (top > -releaseHeight) {
+              if (pullToRefresh$.hasClass('release')) {
+                pullToRefresh$.removeClass('release');
               }
             }
-          });
-        }, 2000);
+          }
+        })
+        .on('touchend', function() {
+          if (pullToRefresh$.hasClass('release')) {
+            icon$.addClass('icon-refresh-animate');
+            pullToRefresh$.removeClass('release').addClass('loading');
+            contents$.css('marginTop', ptrHeight + 'px');
+            scope.pullDownAction(function() {
+              $timeout(function() {
+                pullToRefresh$.removeClass('release').removeClass('loading');
+                icon$.removeClass('icon-refresh-animate');
+                contents$.css('marginTop', '0');
+              }, 1000);
+            })
+          }
+        });
+
       }
     };
   })
@@ -211,4 +230,16 @@ angular.module('githug')
         }, 1000 / 60 );
       }
     }
+  })
+  .directive('fallbackAvatar', function() {
+    return {
+      restrict: 'A',
+      link: function(scope, elem, attr) {
+        elem.on('error', function(e) {
+          $(e.target).attr('src', "https://identicons.github.com/" + attr.fallbackAvatar + ".png");
+        });
+
+      }
+    }
+
   });
