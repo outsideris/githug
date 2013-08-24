@@ -4,10 +4,30 @@
  * <http://outsider.mit-license.org/>
  */
 angular.module('githug')
-  .directive('pullToRefresh', function() {
+  .directive('pullToRefresh', function($timeout) {
     return {
       restrict: 'A',
-      link: function(scope, elem, attr) {
+      link: function(scope, elem) {
+        var html = '<div class="pullToRefresh">' +
+                      '<div class="pullToRefreshContents">' +
+                        '<span class="icon">' +
+                          '<i class="arrow icon-circle-arrow-down"></i>' +
+                          '<i class="spinner icon-refresh"></i>' +
+                        '</span>' +
+                        '<span class="pulltoRefreshMessage pull">Pull to refresh</span>' +
+                        '<span class="pulltoRefreshMessage release">Release to refresh</span>' +
+                        '<span class="pulltoRefreshMessage loading">Loading...</span>' +
+                      '</div>' +
+                    '</div>';
+        elem.prepend(html);
+
+        var pullToRefresh$ = elem.find('.pullToRefresh'),
+            ptrHeight = pullToRefresh$.height(),
+            releaseHeight = ptrHeight + 10,
+            arrow$ = pullToRefresh$.find('.arrow'),
+            icon$ = pullToRefresh$.find('.icon'),
+            contents$ = pullToRefresh$.next();
+
         elem.on('touchstart', function(event) {
           var target = event.currentTarget;
           if (target.scrollTop === 0) {
@@ -15,11 +35,40 @@ angular.module('githug')
           } else if (target.scrollTop === target.scrollHeight - target.offsetHeight) {
             target.scrollTop -= 1;
           }
+        })
+        .on('touchmove', function(event) {
+          event.stopPropagation();
+
+          var top = elem.scrollTop();
+          if (pullToRefresh$.hasClass('loading')) { return true; }
+
+          if (top) {
+            if (-top > releaseHeight) {
+              if (!pullToRefresh$.hasClass('release')) {
+                pullToRefresh$.removeClass('loading').addClass('release');
+              }
+            } else if (top > -releaseHeight) {
+              if (pullToRefresh$.hasClass('release')) {
+                pullToRefresh$.removeClass('release');
+              }
+            }
+          }
+        })
+        .on('touchend', function() {
+          if (pullToRefresh$.hasClass('release')) {
+            icon$.addClass('icon-refresh-animate');
+            pullToRefresh$.removeClass('release').addClass('loading');
+            contents$.css('marginTop', ptrHeight + 'px');
+            scope.pullDownAction(function() {
+              $timeout(function() {
+                pullToRefresh$.removeClass('release').removeClass('loading');
+                icon$.removeClass('icon-refresh-animate');
+                contents$.css('marginTop', '0');
+              }, 1000);
+            })
+          }
         });
 
-        elem.on('touchmove', function(event) {
-          event.stopImmediatePropagation();
-        });
       }
     };
   })

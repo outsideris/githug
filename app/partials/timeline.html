@@ -16,14 +16,6 @@
     <input type="text" placeholder="filter {{title | lowercase}}" ng-model="search">
   </section>
   <section class="main-pane" pull-to-refresh when-scrolled-to-end="loadMore()">
-    <div id="pullDown">
-      <span class="pullDownLineWrap">
-        <span class="pullDownLine"></span>
-      </span>
-      <span class="pullDownIcon">
-        <span><i class="icon-refresh"></i></span>
-      </span>
-    </div>
     <ul class="timeline">
       <li ng-repeat="t in timeline | timelineEvent | filter:search">
         <a href="/users/{{t.actor.login}}">

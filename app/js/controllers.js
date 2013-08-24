@@ -24,6 +24,13 @@ function TimelineCtrl($scope, $timeout, githubService) {
     $scope.timeline = timeline;
   });
 
+  $scope.pullDownAction = function(callback) {
+    Timeline.query(function(timeline) {
+      $scope.timeline = timeline;
+      callback();
+    });
+  };
+
   $scope.loadMore = function() {
     if (!$scope.scrollToEnd) {
       $scope.scrollToEnd = true;
