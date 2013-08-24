@@ -259,6 +259,9 @@ header .rightButton:after {
   margin-top: 5px;
   min-height: 100%;
   -webkit-transform: translateZ(0);
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .timeline:before {
@@ -311,7 +314,7 @@ header .rightButton:after {
 }
 
 .pullToRefresh.loading {
-  top: -3px;
+  top: 0;
 }
 
 .pullToRefreshContents {
@@ -326,7 +329,17 @@ header .rightButton:after {
 .pullToRefresh .loading { display: none; }
 .pullToRefresh .arrow { display: inline; }
 .pullToRefresh .spinner { display: none; }
+.pullToRefresh .icon {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+}
 
+.pullToRefresh .icon {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+}
 .pullToRefresh.release .release { display: inline; }
 .pullToRefresh.release .pull,
 .pullToRefresh.release .loading { display: none; }
@@ -383,14 +396,6 @@ header .rightButton:after {
     -webkit-transform: scale( 1 ) rotate( 360deg );
     transform: scale( 1 ) rotate( 360deg );
   }
-}
-
-.pullDownLine {
-  z-index: -1;
-  background-color: #689AC0;
-  height: 175px;
-  width: 6px;
-  margin: 0 auto;
 }
 
 #scrollEnd > span {

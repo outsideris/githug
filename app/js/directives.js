@@ -26,7 +26,8 @@ angular.module('githug')
             releaseHeight = ptrHeight + 10,
             arrow$ = pullToRefresh$.find('.arrow'),
             icon$ = pullToRefresh$.find('.icon'),
-            contents$ = pullToRefresh$.next();
+            contents$ = pullToRefresh$.next(),
+            contentsMarginTop = contents$.css('marginTop').replace(/px/, '') * 1;
 
         elem.on('touchstart', function(event) {
           var target = event.currentTarget;
@@ -56,15 +57,15 @@ angular.module('githug')
         })
         .on('touchend', function() {
           if (pullToRefresh$.hasClass('release')) {
+            contents$.css('marginTop', (ptrHeight + contentsMarginTop) + 'px');
             icon$.addClass('icon-refresh-animate');
             pullToRefresh$.removeClass('release').addClass('loading');
-            contents$.css('marginTop', ptrHeight + 'px');
             scope.pullDownAction(function() {
               $timeout(function() {
                 pullToRefresh$.removeClass('release').removeClass('loading');
                 icon$.removeClass('icon-refresh-animate');
-                contents$.css('marginTop', '0');
-              }, 1000);
+                contents$.css('marginTop', contentsMarginTop + 'px');
+              }, 2000);
             })
           }
         });
