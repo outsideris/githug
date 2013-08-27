@@ -5,20 +5,21 @@
  */
 angular.module('githug')
   .directive('pullToRefresh', function($timeout) {
+    var html = '<div class="pullToRefresh">' +
+                 '<div class="pullToRefreshContents">' +
+                   '<span class="icon">' +
+                     '<i class="arrow icon-circle-arrow-down"></i>' +
+                     '<i class="spinner icon-refresh"></i>' +
+                   '</span>' +
+                   '<span class="pulltoRefreshMessage pull">Pull to refresh</span>' +
+                   '<span class="pulltoRefreshMessage release">Release to refresh</span>' +
+                   '<span class="pulltoRefreshMessage loading">Loading...</span>' +
+                 '</div>' +
+               '</div>';
+
     return {
       restrict: 'A',
       link: function(scope, elem) {
-        var html = '<div class="pullToRefresh">' +
-                      '<div class="pullToRefreshContents">' +
-                        '<span class="icon">' +
-                          '<i class="arrow icon-circle-arrow-down"></i>' +
-                          '<i class="spinner icon-refresh"></i>' +
-                        '</span>' +
-                        '<span class="pulltoRefreshMessage pull">Pull to refresh</span>' +
-                        '<span class="pulltoRefreshMessage release">Release to refresh</span>' +
-                        '<span class="pulltoRefreshMessage loading">Loading...</span>' +
-                      '</div>' +
-                    '</div>';
         elem.prepend(html);
 
         var pullToRefresh$ = elem.find('.pullToRefresh'),
