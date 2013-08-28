@@ -70,7 +70,34 @@ angular.module('githug')
             })
           }
         });
+      }
+    };
+  })
+  .directive('scrolledToEndToLoadMore', function($timeout) {
+    var html = '<div class="scroll-end">' +
+                 '<span class="icon-refresh-animate">' +
+                   '<i class="icon-refresh icon-2x"></i>' +
+                 '</span>' +
+               '</div>',
+        bodyHeight = $(document.body).height(),
+        isLoading = false;
 
+    return {
+      restrict: 'A',
+      link: function(scope, elem) {
+        elem.append(html);
+
+        var scrollEnd = elem.find('.scroll-end');
+
+        elem.on('scroll', function(event) {
+          var scrollEndTop = scrollEnd.offset().top + 10;
+          if (!isLoading && scrollEndTop < bodyHeight) {
+            isLoading = true;
+            scope.loadMore(function() {
+              isLoading = false;
+            });
+          }
+        });
       }
     };
   })

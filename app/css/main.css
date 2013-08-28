@@ -48,6 +48,7 @@ h6 {
 
 ul {
   -webkit-padding-start: 0;
+  -webkit-margin-after: 0;
 }
 
 li {
@@ -396,7 +397,11 @@ header .rightButton:after {
   }
 }
 
-#scrollEnd > span {
+.scroll-end {
+  padding: 10px 0;
+}
+
+.scroll-end span {
   display: inline-block;
 }
 
