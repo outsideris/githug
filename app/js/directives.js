@@ -5,20 +5,21 @@
  */
 angular.module('githug')
   .directive('pullToRefresh', function($timeout) {
+    var html = '<div class="pullToRefresh">' +
+                 '<div class="pullToRefreshContents">' +
+                   '<span class="icon">' +
+                     '<i class="arrow icon-circle-arrow-down"></i>' +
+                     '<i class="spinner icon-refresh"></i>' +
+                   '</span>' +
+                   '<span class="pulltoRefreshMessage pull">Pull to refresh</span>' +
+                   '<span class="pulltoRefreshMessage release">Release to refresh</span>' +
+                   '<span class="pulltoRefreshMessage loading">Loading...</span>' +
+                 '</div>' +
+               '</div>';
+
     return {
       restrict: 'A',
       link: function(scope, elem) {
-        var html = '<div class="pullToRefresh">' +
-                      '<div class="pullToRefreshContents">' +
-                        '<span class="icon">' +
-                          '<i class="arrow icon-circle-arrow-down"></i>' +
-                          '<i class="spinner icon-refresh"></i>' +
-                        '</span>' +
-                        '<span class="pulltoRefreshMessage pull">Pull to refresh</span>' +
-                        '<span class="pulltoRefreshMessage release">Release to refresh</span>' +
-                        '<span class="pulltoRefreshMessage loading">Loading...</span>' +
-                      '</div>' +
-                    '</div>';
         elem.prepend(html);
 
         var pullToRefresh$ = elem.find('.pullToRefresh'),
@@ -26,7 +27,8 @@ angular.module('githug')
             releaseHeight = ptrHeight + 10,
             arrow$ = pullToRefresh$.find('.arrow'),
             icon$ = pullToRefresh$.find('.icon'),
-            contents$ = pullToRefresh$.next();
+            contents$ = pullToRefresh$.next(),
+            contentsMarginTop = contents$.css('marginTop').replace(/px/, '') * 1;
 
         elem.on('touchstart', function(event) {
           var target = event.currentTarget;
@@ -56,19 +58,46 @@ angular.module('githug')
         })
         .on('touchend', function() {
           if (pullToRefresh$.hasClass('release')) {
+            contents$.css('marginTop', (ptrHeight + contentsMarginTop) + 'px');
             icon$.addClass('icon-refresh-animate');
             pullToRefresh$.removeClass('release').addClass('loading');
-            contents$.css('marginTop', ptrHeight + 'px');
             scope.pullDownAction(function() {
               $timeout(function() {
                 pullToRefresh$.removeClass('release').removeClass('loading');
                 icon$.removeClass('icon-refresh-animate');
-                contents$.css('marginTop', '0');
-              }, 1000);
+                contents$.css('marginTop', contentsMarginTop + 'px');
+              }, 2000);
             })
           }
         });
+      }
+    };
+  })
+  .directive('scrolledToEndToLoadMore', function($timeout) {
+    var html = '<div class="scroll-end">' +
+                 '<span class="icon-refresh-animate">' +
+                   '<i class="icon-refresh icon-2x"></i>' +
+                 '</span>' +
+               '</div>',
+        bodyHeight = $(document.body).height(),
+        isLoading = false;
 
+    return {
+      restrict: 'A',
+      link: function(scope, elem) {
+        elem.append(html);
+
+        var scrollEnd = elem.find('.scroll-end');
+
+        elem.on('scroll', function(event) {
+          var scrollEndTop = scrollEnd.offset().top + 10;
+          if (!isLoading && scrollEndTop < bodyHeight) {
+            isLoading = true;
+            scope.loadMore(function() {
+              isLoading = false;
+            });
+          }
+        });
       }
     };
   })

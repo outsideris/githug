@@ -15,7 +15,7 @@
     <span class="decoration"><i class="icon-search"></i></span>
     <input type="text" placeholder="filter {{title | lowercase}}" ng-model="search">
   </section>
-  <section class="main-pane" pull-to-refresh when-scrolled-to-end="loadMore()">
+  <section class="main-pane" pull-to-refresh scrolled-to-end-to-load-more>
     <ul class="timeline">
       <li ng-repeat="t in timeline | timelineEvent | filter:search">
         <a href="/users/{{t.actor.login}}">
@@ -100,10 +100,6 @@
         </ng-switch>
       </li>
     </ul>
-    <div id="scrollEnd">
-      <span class="icon-refresh-animate" ng-show="scrollToEnd">
-        <i class="icon-refresh icon-2x"></i>
-      </span>
-    </div>
+
   </section>
 </div>
