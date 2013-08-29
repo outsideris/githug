@@ -14,6 +14,8 @@
         otherwise({redirectTo: '/'});
     }])
     .run(function($location, env, githubService) {
+      window.scrollTo(0,1);
+
       var isSignIn = localStorage.getItem('token');
       if (isSignIn) {
         $location.path('/timeline');
