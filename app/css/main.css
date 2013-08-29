@@ -232,28 +232,11 @@ header .rightButton:after {
   -webkit-overflow-scrolling: touch;
 }
 
-/* timeline */
-.main-pane li:first-child {
-  border-top: none;
-}
-
-.main-pane li {
-  border-bottom: 1px solid #3A3B44;
-  border-top: 1px solid #484851;
-  text-align: left;
-  padding: 5px 15px 5px 10px;
-  position: relative;
-  min-height: 50px;
-}
-
-.main-pane li:last-child {
-  border-bottom: none;
-}
-
 .activeSearchBar .main-pane {
   top: 65px;
 }
 
+/* timeline */
 .timeline {
   margin-top: 5px;
   min-height: 100%;
@@ -262,7 +245,6 @@ header .rightButton:after {
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-
 .timeline:before {
   content: "";
   position: absolute;
@@ -272,11 +254,27 @@ header .rightButton:after {
   height: 100%;
 }
 
+.timeline li:first-child {
+  border-top: none;
+}
+
+.timeline li {
+  border-bottom: 1px solid #3A3B44;
+  border-top: 1px solid #484851;
+  text-align: left;
+  padding: 5px 10px;
+  position: relative;
+  min-height: 50px;
+}
+
+.timeline li:last-child {
+  border-bottom: none;
+}
+
 .timeline .avatar {
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  float: left;
   margin-right: 10px;
   position: absolute;
   top: 50%;
@@ -291,6 +289,7 @@ header .rightButton:after {
   display: block;
   font-size: 12px;
   margin-left: 50px;
+  margin-right: 15px;
   padding-left: 20px;
 }
 
@@ -299,7 +298,13 @@ header .rightButton:after {
   float: right;
   margin-top: 2px;
 }
-
+.timeline .event-type {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  opacity: 0.2;
+  font-size: 20px;
+}
 /* pull to refresh */
 .pullToRefresh {
   height: 35px;
