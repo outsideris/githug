@@ -382,7 +382,7 @@ header .rightButton:after {
 .icon-refresh-animate {
   line-height: 20px;
   -webkit-animation-name: rotateThis;
-  -webkit-animation-duration: .5s;
+  -webkit-animation-duration: .7s;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
   animation-name: rotateThis;
