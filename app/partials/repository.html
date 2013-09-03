@@ -1,0 +1,16 @@
+<ng-include src="'partials/sideMenus.html'"></ng-include>
+
+<div class="wrapper" ng-class="{'sidemenu-left-open': openSideMenu, activeSearchBar:searchBar}">
+  <div class="overlay" ng-click="closeSideMenu()"></div>
+  <header>
+    <a href="#" class="leftButton" ng-click="openLeftMenu()" eat-click>
+      <i class="icon-align-justify"></i>
+    </a>
+    <a href="#" class="rightButton" ng-click="toggleSearchBar()" eat-click>
+      <i class="icon-search"></i>
+    </a>
+    <h2>{{title}}</h2>
+  </header>
+  <section class="main-pane">
+  </section>
+</div>

@@ -11,6 +11,7 @@
       $routeProvider.
         when('/signin', {templateUrl: 'partials/signin.html', controller: SignInCtrl}).
         when('/timeline', {templateUrl: 'partials/timeline.html', controller: TimelineCtrl}).
+        when('/repos/:userName/:repoName', {templateUrl: 'partials/repository.html', controller: RepositoryCtrl}).
         otherwise({redirectTo: '/'});
     }])
     .run(function($location, env, githubService) {

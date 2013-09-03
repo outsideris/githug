@@ -55,7 +55,7 @@ function TimelineCtrl($scope, githubService) {
   }
 }
 
-function LeftSideMenuCtrl($scope, $timeout, $element, env, githubService) {
+function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubService) {
   $timeout(function() {
     $scope.userName = env.user('name');
     $scope.avatar = env.user('avatar');
@@ -83,16 +83,27 @@ function LeftSideMenuCtrl($scope, $timeout, $element, env, githubService) {
     $scope.select = function(event) {
       $element.find('.menu').removeClass('selected');
       $(event.target).addClass('selected');
-    }
+    };
 
     $scope.selected = function(event) {
       $element.find('.menu').removeClass('selected');
-      $(event.target).addClass('selected');
-//      alert('selected: ' + $(event.target).text())
-    }
+
+      var tg$ = $(event.target);
+      tg$.addClass('selected');
+      if(tg$.attr('path')) {
+        $scope.$apply(function() {
+          $location.path(tg$.attr('path'));
+        });
+      }
+    };
 
     $scope.beforeScroll = function(event, elem) {
       elem.find('.menu').removeClass('selected');
-    }
+    };
   }, 1000);
+}
+
+function RepositoryCtrl($scope, githubService) {
+  'use strict';
+  $scope.title = "Repo / Home";
 }

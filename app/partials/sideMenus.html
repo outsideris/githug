@@ -7,7 +7,7 @@
       </ul>
       <ul class="menus" data-liffect="slideLeft" slide-effect>
         <li class="group">My menus</li>
-        <li class="menu" clickable="selected">Timeline</li>
+        <li class="menu" clickable="selected" path="/timeline">Timeline</li>
         <li class="menu" clickable="selected">Issues</li>
         <li class="menu" clickable="selected">Followers</li>
         <li class="menu" clickable="selected">Following</li>
@@ -15,12 +15,12 @@
         <li class="menu" clickable="selected">Search</li>
 
         <li class="group">My repositories</li>
-        <li ng-repeat="repo in repos" class="menu" clickable="selected">
+        <li ng-repeat="repo in repos" class="menu" clickable="selected" path="/repos/{{repo.full_name}}">
           {{repo.name}}
         </li>
 
         <li class="group">My organizations</li>
-        <li ng-repeat="org in orgs" class="menu" clickable="selected">
+        <li ng-repeat="org in orgs" class="menu" clickable="selected" path="/orgs/{{org.login}}">
           {{org.login}}
         </li>
       </ul>
