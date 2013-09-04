@@ -19,7 +19,9 @@
 
       var isSignIn = localStorage.getItem('token');
       if (isSignIn) {
-        $location.path('/timeline');
+        if (!$location.path() || $location.path() === '/signin' || $location.path() === '/') {
+          $location.path('/timeline');
+        }
       } else {
         $location.path('/signin');
       }
