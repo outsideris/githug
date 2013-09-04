@@ -15,10 +15,12 @@
   "predef": [
     "angular",
     "OAuth",
+    "Stats",
     "_",
     "githugApp",
     "iScroll",
     "SignInCtrl",
-    "TimelineCtrl"
+    "TimelineCtrl",
+    "RepositoryCtrl"
   ]
 }

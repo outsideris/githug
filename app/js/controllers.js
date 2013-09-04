@@ -52,7 +52,7 @@ function TimelineCtrl($scope, githubService) {
     } else {
       $scope.searchBar = 'activeSearchBar';
     }
-  }
+  };
 }
 
 function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubService) {

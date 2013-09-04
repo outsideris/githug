@@ -67,7 +67,7 @@ angular.module('githug')
                 icon$.removeClass('icon-refresh-animate');
                 contents$.css('marginTop', contentsMarginTop + 'px');
               }, 2000);
-            })
+            });
           }
         });
       }
@@ -108,7 +108,8 @@ angular.module('githug')
         var startX, startY,
             touchedTimestamps = [],
             scrollInited = true,
-            scrollEnded = true;
+            scrollEnded = true,
+            started = false;
 
         elem.on('touchstart', function(event) {
           started = true;
@@ -130,11 +131,11 @@ angular.module('githug')
 
         elem.on('touchmove', function(event) {
           touchedTimestamps.push(new Date().getTime());
-          touchedTimestamps = _.rest(touchedTimestamps, touchedTimestamps.length - 3)
+          touchedTimestamps = _.rest(touchedTimestamps, touchedTimestamps.length - 3);
 
           var newX = event.originalEvent.changedTouches[0].clientX,
               newY = event.originalEvent.changedTouches[0].clientY,
-              deltaX = Math.abs(startX - newX);
+              deltaX = Math.abs(startX - newX),
               deltaY = Math.abs(startY - newY);
 
           if (deltaX > deltaY) {
@@ -161,9 +162,9 @@ angular.module('githug')
             var touchVelocity = [];
             touchVelocity.push(touchedTimestamps[1] - touchedTimestamps[0]);
             touchVelocity.push(touchedTimestamps[2] - touchedTimestamps[1]);
-            touchVelocity.push(touchedTimestamps[3] - touchedTimestamps[2])
+            touchVelocity.push(touchedTimestamps[3] - touchedTimestamps[2]);
             touchedTimestamps = [];
-            startMomentumScroll = _.every(touchVelocity, function(x) { return x < 25});
+            startMomentumScroll = _.every(touchVelocity, function(x) { return x < 25; });
           }
 
           if (startMomentumScroll) {
@@ -171,7 +172,7 @@ angular.module('githug')
           } else {
             // prevent click with wrong positon since browser doesn't update during momentum scroll
             if (scrollInited) {
-              handler = $(event.target).attr('clickable');
+              var handler = $(event.target).attr('clickable');
               if (typeof scope[handler] === 'function') {
                 scope[handler](event);
               }
@@ -198,10 +199,10 @@ angular.module('githug')
 
         scope.setSlide = function() {
           elem.find('li').each(function(i) {
-            $(this).attr("style", "-webkit-animation-delay:" + i * DELAY + "ms;"
-              + "-moz-animation-delay:" + i * DELAY + "ms;"
-              + "-o-animation-delay:" + i * DELAY + "ms;"
-              + "animation-delay:" + i * DELAY + "ms;");
+            $(this).attr("style", "-webkit-animation-delay:" + i * DELAY + "ms;" +
+              "-moz-animation-delay:" + i * DELAY + "ms;" +
+              "-o-animation-delay:" + i * DELAY + "ms;" +
+              "animation-delay:" + i * DELAY + "ms;");
           });
         };
         scope.playSlide = function() {
@@ -212,7 +213,7 @@ angular.module('githug')
             $(elem).removeClass("play");
             $(elem).html($(elem).html());
           }, 500);
-        }
+        };
       }
     };
   })
@@ -220,7 +221,7 @@ angular.module('githug')
     return function(scope, elem, attr) {
       elem.fastClick(function (e) {
         scope.$apply(attr.fastClick);
-      })
+      });
     };
   })
   .directive('eatClick', function() {
@@ -238,7 +239,7 @@ angular.module('githug')
           event.preventDefault();
         });
       }
-    }
+    };
   })
   .directive('stats', function() {
     return {
@@ -258,7 +259,7 @@ angular.module('githug')
           stats.update();
         }, 1000 / 60 );
       }
-    }
+    };
   })
   .directive('fallbackAvatar', function() {
     return {
@@ -269,6 +270,5 @@ angular.module('githug')
         });
 
       }
-    }
-
+    };
   });
