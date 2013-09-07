@@ -70,6 +70,12 @@ a:active {
 .bold {
   font-weight: 700;
 }
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
 
 #contents {
   margin-top: 0;
@@ -594,4 +600,74 @@ ul[data-liffect="slideLeft"].play li {
 
 .activeSearchBar .searchBar {
   top: 35px;
+}
+
+/* repository */
+.main-pane .head {
+  border-bottom: 1px solid #3A3B44;
+  padding-bottom: 5px;
+}
+.main-pane h1 {
+  margin: 5px 0 3px;
+}
+
+.main-pane .repo-desc {
+  margin: 0 10px;
+  text-align: left;
+  font-size: 12px;
+}
+
+.main-pane .contents {
+  border-top: 1px solid #484851;
+  padding: 5px 0;
+}
+.main-pane .contents .info {
+  margin-left: 10px;
+  font-size: 12px;
+}
+.main-pane .actions {
+  margin-top: 7px;
+  text-align: right;
+}
+.main-pane .action {
+  border-radius: 3px;
+  border: 1px solid #28282E;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  padding: 0;
+  font-size: 13px;
+  background-color: #3A3B44;
+  display: inline-block;
+  color: #BDB9B1;
+  font-weight: 400;
+}
+.main-pane a.action:hover,
+.main-pane a.action:active {
+  color: #689AC0;
+  background-color: #3D434B;
+}
+.main-pane .action-inner {
+  border-top: 1px solid #4A4C58;
+  border-bottom: 1px solid #26262D;
+  border-radius: 3px;
+  display: inline-block;
+}
+.main-pane .action .label {
+  border-right: 1px solid #28282E;
+  padding: 0 5px;
+}
+.main-pane .action .label i {
+  font-size: 10px;
+}
+.main-pane .action .count {
+  border-left: 1px solid #42424C;
+  padding: 0 5px;
+  text-align: right;
+}
+.main-pane .contents .section {
+  border: 1px solid #28282E;
+  margin: 0 10px;
+  box-shadow: inset 1px 2px 5px #28282E, inset -1px -2px 5px #28282E;
+  border-radius: 3px;
+  clear: both;
 }

@@ -30,6 +30,12 @@ angular.module('githug')
           userId: env.user('userid'),
           access_token: env.user('token')
         });
+      },
+      Repository: function(userId, repoName) {
+        return $resource('https://api.github.com/repos/:userId/:repoName', {
+          userId: userId,
+          repoName: repoName
+        });
       }
     };
   });

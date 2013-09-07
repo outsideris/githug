@@ -103,7 +103,16 @@ function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubServ
   }, 1000);
 }
 
-function RepositoryCtrl($scope, githubService) {
+function RepositoryCtrl($scope, $routeParams, githubService) {
   'use strict';
   $scope.title = "Repo / Home";
+
+  var Repository = githubService.Repository($routeParams.userId, $routeParams.repoName);
+  Repository.get(function(repo) {
+    $scope.repo = repo;
+  });
+
+  $scope.doStar = function() {
+    console.log('do star');
+  }
 }
