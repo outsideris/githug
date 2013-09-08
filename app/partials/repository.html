@@ -23,7 +23,9 @@
       <a class="action pull-right" fast-click="doStar()">
         <span class="action-inner">
           <span class="label"><i class="icon-star"></i>
-          Star</span><span class="count">{{repo.watchers_count | number}}</span>
+          <span ng-show="starred">Unstar</span>
+          <span ng-show="!starred">Star</span>
+          </span><span class="count">{{repo.watchers_count | number}}</span>
         </span>
       </a>
       <div class="section">

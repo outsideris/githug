@@ -107,12 +107,31 @@ function RepositoryCtrl($scope, $routeParams, githubService) {
   'use strict';
   $scope.title = "Repo / Home";
 
-  var Repository = githubService.Repository($routeParams.userId, $routeParams.repoName);
+  var Repository = githubService.Repository($routeParams.userId, $routeParams.repoName),
+      Star = githubService.Star($routeParams.userId, $routeParams.repoName);
+
   Repository.get(function(repo) {
     $scope.repo = repo;
   });
 
+  Star.get(function() {
+    $scope.starred = true;
+  }, function() {
+    $scope.starred = false;
+  });
+
   $scope.doStar = function() {
-    console.log('do star');
-  }
+    var send;
+    if ($scope.starred) {
+      send = Star.remove;
+    } else {
+      send = Star.put;
+    }
+
+    send(function(d) {
+      $scope.starred = !$scope.starred;
+    }, function() {
+      // FIXME: handle when failed
+    });
+  };
 }

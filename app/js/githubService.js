@@ -31,10 +31,20 @@ angular.module('githug')
           access_token: env.user('token')
         });
       },
-      Repository: function(userId, repoName) {
-        return $resource('https://api.github.com/repos/:userId/:repoName', {
-          userId: userId,
-          repoName: repoName
+      Repository: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
+      },
+      Star: function(ownerId, repoName) {
+        return $resource('https://api.github.com/user/starred/:ownerId/:repoName', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        }, {
+          put: {method: 'PUT'}
         });
       }
     };
