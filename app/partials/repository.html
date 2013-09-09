@@ -25,7 +25,15 @@
           <span class="label"><i class="icon-star"></i>
           <span ng-show="starred">Unstar</span>
           <span ng-show="!starred">Star</span>
-          </span><span class="count">{{repo.watchers_count | number}}</span>
+          </span><span class="count">{{repo.watchers_count || 0 | number}}</span>
+        </span>
+      </a>
+      <a class="action pull-right">
+        <span class="action-inner">
+          <span class="label"><i class="icon-eye-open"></i>
+          <span ng-show="watched">Unwatch</span>
+          <span ng-show="!watched">Watch</span>
+          </span><span class="count">{{watchers || 0 | number}}</span>
         </span>
       </a>
       <div class="section">

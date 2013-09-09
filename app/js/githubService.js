@@ -46,6 +46,24 @@ angular.module('githug')
         }, {
           put: {method: 'PUT'}
         });
+      },
+      RepoWatchers: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/subscribers', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        }, {
+          put: {method: 'PUT'}
+        });
+      },
+      WatchRepo: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/subscription', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        }, {
+          put: {method: 'PUT'}
+        });
       }
     };
   });

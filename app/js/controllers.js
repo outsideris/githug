@@ -103,12 +103,14 @@ function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubServ
   }, 1000);
 }
 
-function RepositoryCtrl($scope, $routeParams, githubService) {
+function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
   'use strict';
   $scope.title = "Repo / Home";
 
   var Repository = githubService.Repository($routeParams.userId, $routeParams.repoName),
-      Star = githubService.Star($routeParams.userId, $routeParams.repoName);
+      Star = githubService.Star($routeParams.userId, $routeParams.repoName),
+      RepoWatchers = githubService.RepoWatchers($routeParams.userId, $routeParams.repoName),
+      WatchRepo = githubService.WatchRepo($routeParams.userId, $routeParams.repoName);
 
   Repository.get(function(repo) {
     $scope.repo = repo;
@@ -118,6 +120,27 @@ function RepositoryCtrl($scope, $routeParams, githubService) {
     $scope.starred = true;
   }, function() {
     $scope.starred = false;
+  });
+
+  RepoWatchers.query(function(data, getResponseHeaders) {
+    var lastSubscribersUrl = commonService.parseLinkHeader(getResponseHeaders('link')).last,
+        paramOfLastSubscribersUrl = lastSubscribersUrl.substr(lastSubscribersUrl.indexOf('?')),
+        lastPage = commonService.getParameterByName(paramOfLastSubscribersUrl, 'page');
+
+    if (lastPage > 1) {
+      RepoWatchers.query({page: lastPage}, function(data) {
+        $scope.watchers = (lastPage - 1) * 100 + data.length;
+      });
+    } else {
+      $scope.watchers = data.length;
+    }
+  });
+
+
+  WatchRepo.get(function(data) {
+    $scope.watched = true;
+  }, function() {
+    $scope.watched = false;
   });
 
   $scope.doStar = function() {
