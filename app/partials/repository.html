@@ -28,7 +28,7 @@
           </span><span class="count">{{repo.watchers_count || 0 | number}}</span>
         </span>
       </a>
-      <a class="action pull-right">
+      <a class="action pull-right" fast-click="openWatchModal('watchModal')">
         <span class="action-inner">
           <span class="label"><i class="icon-eye-open"></i>
           <span ng-show="watched">Unwatch</span>
@@ -41,4 +41,32 @@
       </div>
     </div>
   </section>
+</div>
+
+<!-- modals -->
+<div class="modal" modal="watchModal">
+  <h4 class="modal-head">Notification status</h4>
+  <div class="modal-body">
+    <ul>
+      <li>
+        Not Watching
+        <span class="modal-desc">
+          You only receive notifications for discussions in which you participate or are @mentioned.
+        </span>
+      </li>
+      <li>
+        Watching
+        <span class="modal-desc">
+          You receive notifications for all discussions in this repository.
+        </span>
+      </li>
+      <li>
+        Ignoring
+        <span class="modal-desc">
+          You do not receive any notifications for discussions in this repository.
+        </span>
+      </li>
+      <li></li>
+    </ul>
+  </div>
 </div>

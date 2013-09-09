@@ -271,4 +271,23 @@ angular.module('githug')
 
       }
     };
+  })
+  .directive('modal', function() {
+    return {
+      restrict: 'A',
+      link: function(scope, elem, attrs) {
+        scope.$watch(attrs['modal'], function(newValue, oldValue) {
+          if (newValue) {
+            elem.modal({
+              showClose: false
+            });
+          }
+        });
+        elem.on($.modal.BEFORE_CLOSE, function() {
+          scope.$apply(function() {
+            scope[attrs['modal']] = false;
+          })
+        });
+      }
+    };
   });

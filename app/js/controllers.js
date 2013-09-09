@@ -151,8 +151,27 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       send = Star.put;
     }
 
-    send(function(d) {
+    send(function() {
       $scope.starred = !$scope.starred;
+    }, function() {
+      // FIXME: handle when failed
+    });
+  };
+
+  $scope.openWatchModal = function(modal) {
+    $scope[modal] = !$scope[modal];
+  };
+
+  $scope.doWatch = function(modal) {
+    var send;
+    if ($scope.watched) {
+      send = WatchRepo.remove;
+    } else {
+      send = WatchRepo.put;
+    }
+
+    send(function() {
+//      $scope.starred = !$scope.starred;
     }, function() {
       // FIXME: handle when failed
     });
