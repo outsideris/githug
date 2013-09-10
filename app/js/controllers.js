@@ -112,6 +112,8 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       RepoWatchers = githubService.RepoWatchers($routeParams.userId, $routeParams.repoName),
       WatchRepo = githubService.WatchRepo($routeParams.userId, $routeParams.repoName);
 
+  $scope.myWatchCount = 0;
+
   Repository.get(function(repo) {
     $scope.repo = repo;
   });
@@ -122,6 +124,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     $scope.starred = false;
   });
 
+  // watch count
   RepoWatchers.query(function(data, getResponseHeaders) {
     var lastSubscribersUrl = commonService.parseLinkHeader(getResponseHeaders('link')).last,
         paramOfLastSubscribersUrl = lastSubscribersUrl.substr(lastSubscribersUrl.indexOf('?')),
@@ -137,6 +140,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
   });
 
 
+  // check if user watch this repository
   WatchRepo.get(function(data) {
     $scope.watched = true;
     if (data.subscribed) {
@@ -144,6 +148,8 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     } else if (data.ignored) {
       $scope.ignored = true;
     }
+    $scope.watchers = $scope.watchers - 1;
+    $scope.myWatchCount = 1;
   }, function() {
     $scope.watched = false;
   });
@@ -171,6 +177,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     if (type === 'notWatch') {
       WatchRepo.remove(function() {
         $scope.watched = false;
+        $scope.myWatchCount = 0;
       }, function() {
         // FIXME: handle when failed
       });
@@ -181,6 +188,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       }, function() {
         $scope.watched = true;
         $scope.ignored = false;
+        $scope.myWatchCount = 1;
       }, function() {
         // FIXME: handle when failed
       });
@@ -191,6 +199,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       }, function() {
         $scope.watched = true;
         $scope.ignored = true;
+        $scope.myWatchCount = 1;
       }, function() {
         // FIXME: handle when failed
       });

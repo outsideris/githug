@@ -34,7 +34,7 @@
           <span ng-show="watched && !ignored">Unwatch</span>
           <span ng-show="watched && ignored">Stop ignoring</span>
           <span ng-show="!watched">Watch</span>
-          </span><span class="count">{{watchers || 0 | number}}</span>
+          </span><span class="count">{{watchers + myWatchCount || 0 | number}}</span>
         </span>
       </a>
       <div class="section">
