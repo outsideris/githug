@@ -139,6 +139,11 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
 
   WatchRepo.get(function(data) {
     $scope.watched = true;
+    if (data.subscribed) {
+      $scope.ignored = false;
+    } else if (data.ignored) {
+      $scope.ignored = true;
+    }
   }, function() {
     $scope.watched = false;
   });
@@ -162,18 +167,34 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     $scope[modal] = !$scope[modal];
   };
 
-  $scope.doWatch = function(modal) {
-    var send;
-    if ($scope.watched) {
-      send = WatchRepo.remove;
-    } else {
-      send = WatchRepo.put;
+  $scope.doWatch = function(type) {
+    if (type === 'notWatch') {
+      WatchRepo.remove(function() {
+        $scope.watched = false;
+      }, function() {
+        // FIXME: handle when failed
+      });
+    } else if (type === 'watch') {
+      WatchRepo.put({
+        subscribed: true,
+        ignored: false
+      }, function() {
+        $scope.watched = true;
+        $scope.ignored = false;
+      }, function() {
+        // FIXME: handle when failed
+      });
+    } else if (type === 'ignore') {
+      WatchRepo.put({
+        subscribed: false,
+        ignored: true
+      }, function() {
+        $scope.watched = true;
+        $scope.ignored = true;
+      }, function() {
+        // FIXME: handle when failed
+      });
     }
-
-    send(function() {
-//      $scope.starred = !$scope.starred;
-    }, function() {
-      // FIXME: handle when failed
-    });
+    $.modal.close();
   };
 }

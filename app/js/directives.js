@@ -283,10 +283,15 @@ angular.module('githug')
             });
           }
         });
-        elem.on($.modal.BEFORE_CLOSE, function() {
-          scope.$apply(function() {
+        elem.on($.modal.CLOSE, function() {
+          // prevent "$apply already in progress" error when controller use $apply
+          if (scope.$$phase) {
             scope[attrs['modal']] = false;
-          })
+          } else {
+            scope.$apply(function() {
+              scope[attrs['modal']] = false;
+            });
+          }
         });
       }
     };

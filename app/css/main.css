@@ -104,6 +104,10 @@ a:active {
   border-bottom: 1px solid #A3A6AE;
   border-top: 1px solid #FFFFFF;
 }
+.modal .modal-body li:active {
+  background-color: #689AC0;
+  color: #E7F0EC;
+}
 .modal .modal-body li:first-child {
   border-top: none;
 }
@@ -116,6 +120,12 @@ a:active {
   margin-top: -2px;
   line-height: 12px;
   color: #909396;
+}
+.modal .modal-body li:active .modal-desc {
+  color: #E7F0EC;
+}
+.modal .modal-body .checker {
+  margin-left: -20px;
 }
 #contents {
   margin-top: 0;
