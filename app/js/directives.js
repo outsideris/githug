@@ -279,7 +279,8 @@ angular.module('githug')
         scope.$watch(attrs['modal'], function(newValue, oldValue) {
           if (newValue) {
             elem.modal({
-              showClose: false
+              showClose: false,
+              zIndex: 900
             });
           }
         });
