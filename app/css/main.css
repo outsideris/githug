@@ -742,3 +742,19 @@ ul[data-liffect="slideLeft"].play li {
 .main-pane .contents .language-graph li span {
   margin-left: 3px;
 }
+.main-pane .contents .repo-info {
+  margin: 5px;
+  font-size: 10px;
+  text-align: left;
+  padding: 0 10px;
+  float: left;
+  width: 100%;
+}
+.main-pane .contents .repo-info i {
+  font-size: 9px;
+}
+.main-pane .contents .repo-info li {
+  float: left;
+  width: 33%;
+
+}

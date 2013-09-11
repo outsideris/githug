@@ -71,6 +71,27 @@ angular.module('githug')
           repoName: repoName,
           access_token: env.user('token')
         });
+      },
+      RepoBranches: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/branches', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
+      },
+      RepoTags: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/tags', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
+      },
+      RepoContributors: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/contributors', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
       }
     };
   });

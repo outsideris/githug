@@ -111,7 +111,10 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       Star = githubService.Star($routeParams.userId, $routeParams.repoName),
       RepoWatchers = githubService.RepoWatchers($routeParams.userId, $routeParams.repoName),
       WatchRepo = githubService.WatchRepo($routeParams.userId, $routeParams.repoName),
-      RepoLanguages = githubService.RepoLanguages($routeParams.userId, $routeParams.repoName);
+      RepoLanguages = githubService.RepoLanguages($routeParams.userId, $routeParams.repoName),
+      RepoBranches = githubService.RepoBranches($routeParams.userId, $routeParams.repoName),
+      RepoTags = githubService.RepoTags($routeParams.userId, $routeParams.repoName),
+      RepoContributors = githubService.RepoContributors($routeParams.userId, $routeParams.repoName);
 
   $scope.myWatchCount = 0;
 
@@ -205,7 +208,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     $.modal.close();
   };
 
-  // watch count
+  // languages used
   var colors = d3.scale.category10().range();
   RepoLanguages.get(function(data, getResponseHeaders) {
     var total = 0,
@@ -252,5 +255,20 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       };
     });
     $scope.languages = languages;
+  });
+
+  // branches
+  RepoBranches.query(function(data, getResponseHeaders) {
+    $scope.branchCount = data.length;
+  });
+
+  // tags
+  RepoTags.query(function(data, getResponseHeaders) {
+    $scope.tagCount = data.length;
+  });
+
+  // contributors
+  RepoContributors.query(function(data, getResponseHeaders) {
+    $scope.contributorCount = data.length;
   });
 }
