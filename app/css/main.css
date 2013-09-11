@@ -657,8 +657,11 @@ ul[data-liffect="slideLeft"].play li {
   border-bottom: 1px solid #3A3B44;
   padding-bottom: 5px;
 }
-.main-pane h1 {
-  margin: 5px 0 3px;
+.main-pane h2 {
+  margin: 10px 0 3px;
+}
+.main-pane h2 span {
+  font-size: 0.7em;
 }
 
 .main-pane .repo-desc {
