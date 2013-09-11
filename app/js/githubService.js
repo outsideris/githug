@@ -64,6 +64,13 @@ angular.module('githug')
         }, {
           put: {method: 'PUT'}
         });
+      },
+      RepoLanguages: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/languages', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
       }
     };
   });

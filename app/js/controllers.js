@@ -110,7 +110,8 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
   var Repository = githubService.Repository($routeParams.userId, $routeParams.repoName),
       Star = githubService.Star($routeParams.userId, $routeParams.repoName),
       RepoWatchers = githubService.RepoWatchers($routeParams.userId, $routeParams.repoName),
-      WatchRepo = githubService.WatchRepo($routeParams.userId, $routeParams.repoName);
+      WatchRepo = githubService.WatchRepo($routeParams.userId, $routeParams.repoName),
+      RepoLanguages = githubService.RepoLanguages($routeParams.userId, $routeParams.repoName);
 
   $scope.myWatchCount = 0;
 
@@ -136,7 +137,6 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       $scope.watchers = data.length;
     }
   });
-
 
   // check if user watch this repository
   WatchRepo.get(function(data) {
@@ -204,4 +204,53 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     }
     $.modal.close();
   };
+
+  // watch count
+  var colors = d3.scale.category10().range();
+  RepoLanguages.get(function(data, getResponseHeaders) {
+    var total = 0,
+        languages = [];
+
+    var getOther = function(languages) {
+      var others = languages.filter(function(l) {
+        return l.name === 'Other';
+      });
+
+      if (others.length > 0) { return others[0]; }
+      else { return null; }
+    };
+
+    Object.keys(data).forEach(function(key) {
+      total += data[key];
+    });
+    Object.keys(data).forEach(function(key) {
+      var lang = {},
+          percentage = Math.round(data[key] / total * 1000) / 10;
+
+      if (percentage > 1.0) {
+        lang.name = key;
+        lang.percentage = percentage;
+        languages.push(lang);
+      } else {
+        var other = getOther(languages);
+        if (other) {
+          other.percentage += percentage;
+        } else {
+          other = {
+            name: 'Other',
+            percentage: percentage
+          };
+          languages.push(other);
+        }
+      }
+    });
+    languages.sort(function(a, b) {return b.percentage - a.percentage;});
+    languages.forEach(function(l, i) {
+      l.style = {
+        backgroundColor: colors[i],
+        width: 100 / languages.length + '%'
+      };
+    });
+    $scope.languages = languages;
+  });
 }

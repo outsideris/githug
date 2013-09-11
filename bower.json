@@ -9,6 +9,7 @@
     "angular-resource": "~1.0.7",
     "google-fastbutton": "~1.0.1",
     "stats.js": "*",
-    "jquery-modal": "~0.5.2"
+    "jquery-modal": "~0.5.2",
+    "d3": "~3.3.3"
   }
 }

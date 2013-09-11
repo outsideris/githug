@@ -721,3 +721,24 @@ ul[data-liffect="slideLeft"].play li {
   border-radius: 3px;
   clear: both;
 }
+
+.main-pane .contents .language-graph {
+  clear: both;
+  margin: 0 10px;
+  color: #E7F0EC;
+  font-size: 10px;
+}
+.main-pane .contents .language-graph ul {
+  float: left;
+  width: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.main-pane .contents .language-graph li {
+  float: left;
+  text-align: left;
+  height: 14px;
+}
+.main-pane .contents .language-graph li span {
+  margin-left: 3px;
+}

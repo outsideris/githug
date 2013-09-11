@@ -37,6 +37,13 @@
           </span><span class="count">{{watchers + myWatchCount || 0 | number}}</span>
         </span>
       </a>
+      <div class="language-graph">
+        <ul>
+          <li ng-repeat="l in languages" ng-style="l.style">
+            <span>{{l.name}}: {{l.percentage}}%</span>
+          </li>
+        </ul>
+      </div>
       <div class="section">
         Contents Here
       </div>
