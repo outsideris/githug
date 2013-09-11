@@ -126,10 +126,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
 
   // watch count
   RepoWatchers.query(function(data, getResponseHeaders) {
-    var lastSubscribersUrl = getResponseHeaders('link') ?
-                             commonService.parseLinkHeader(getResponseHeaders('link')).last : '?page=0',
-        paramOfLastSubscribersUrl = lastSubscribersUrl.substr(lastSubscribersUrl.indexOf('?')),
-        lastPage = commonService.getParameterByName(paramOfLastSubscribersUrl, 'page');
+    var lastPage = commonService.findLastPageFromHeader(getResponseHeaders);
 
     if (lastPage > 1) {
       RepoWatchers.query({page: lastPage}, function(data) {

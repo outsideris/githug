@@ -34,6 +34,13 @@ angular.module('githug')
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
           results = regex.exec(url);
         return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      },
+      findLastPageFromHeader: function(headers) {
+        var lastPageUrl = headers('link') ?
+                                 this.parseLinkHeader(headers('link')).last : '?page=0',
+            paramOfLastPageUrl = lastPageUrl.substr(lastPageUrl.indexOf('?')),
+            lastPage = this.getParameterByName(paramOfLastPageUrl, 'page');
+        return lastPage;
       }
     };
   });
