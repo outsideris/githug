@@ -11,12 +11,12 @@
     </a>
     <h2>{{title}}</h2>
   </header>
-  <section class="main-pane">
+  <section class="main-pane" pull-to-refresh>
     <div class="head">
       <h2>{{repo.full_name}}<span> :{{repo.default_branch}}</span></h2>
       <p class="repo-desc">{{repo.description}} <a ng-href="{{repo.homepage}}">{{repo.homepage}}</a></p>
     </div>
-    <div class="contents">
+    <div class="repo-extra">
       <span class="info pull-left">
         <i class="icon-code-fork"></i> {{repo.forks_count | number}} forked
       </span>
@@ -52,8 +52,9 @@
         </ul>
 
       </div>
-      <div class="section">
-        Contents Here
+    </div>
+    <div class="contents">
+      <div class="section markdown" ng-bind-html-unsafe="readme">
       </div>
     </div>
   </section>

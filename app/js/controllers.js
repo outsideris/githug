@@ -114,7 +114,8 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       RepoLanguages = githubService.RepoLanguages($routeParams.userId, $routeParams.repoName),
       RepoBranches = githubService.RepoBranches($routeParams.userId, $routeParams.repoName),
       RepoTags = githubService.RepoTags($routeParams.userId, $routeParams.repoName),
-      RepoContributors = githubService.RepoContributors($routeParams.userId, $routeParams.repoName);
+      RepoContributors = githubService.RepoContributors($routeParams.userId, $routeParams.repoName),
+      RepoReadme = githubService.RepoReadme($routeParams.userId, $routeParams.repoName);
 
   $scope.myWatchCount = 0;
 
@@ -210,7 +211,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
 
   // languages used
   var colors = d3.scale.category10().range();
-  RepoLanguages.get(function(data, getResponseHeaders) {
+  RepoLanguages.get(function(data) {
     var total = 0,
         languages = [];
 
@@ -258,17 +259,29 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
   });
 
   // branches
-  RepoBranches.query(function(data, getResponseHeaders) {
+  RepoBranches.query(function(data) {
     $scope.branchCount = data.length;
   });
 
   // tags
-  RepoTags.query(function(data, getResponseHeaders) {
+  RepoTags.query(function(data) {
     $scope.tagCount = data.length;
   });
 
   // contributors
-  RepoContributors.query(function(data, getResponseHeaders) {
+  RepoContributors.query(function(data) {
     $scope.contributorCount = data.length;
+  });
+
+  // get readme
+  RepoReadme.get(function(data) {
+    var content = [],
+        splittedContent = data.content.split('\n');
+
+    splittedContent.forEach(function(line) {
+      content.push(atob(line));
+    });
+
+    $scope.readme = marked(content.join(''));
   });
 }

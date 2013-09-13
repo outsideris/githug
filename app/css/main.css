@@ -52,7 +52,7 @@ ul {
   -webkit-margin-before: 0;
 }
 
-li {
+ul li {
   list-style: none;
 }
 
@@ -674,7 +674,17 @@ ul[data-liffect="slideLeft"].play li {
   border-top: 1px solid #484851;
   padding: 5px 0;
 }
-.main-pane .contents .info {
+.main-pane .repo-extra {
+  padding-top: 5px;
+  border-top: 1px solid #484851;
+  border-bottom: 1px solid #3A3B44;
+}
+.main-pane .repo-extra:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+.main-pane .repo-extra .info {
   margin-left: 10px;
   font-size: 12px;
 }
@@ -688,7 +698,7 @@ ul[data-liffect="slideLeft"].play li {
   margin-right: 10px;
   margin-bottom: 5px;
   padding: 0;
-  font-size: 13px;
+  font-size: 12px;
   background-color: #3A3B44;
   display: inline-block;
   color: #BDB9B1;
@@ -716,48 +726,87 @@ ul[data-liffect="slideLeft"].play li {
   border-left: 1px solid #42424C;
   padding: 0 5px;
   text-align: right;
+  font-size: 11px;
 }
 .main-pane .contents .section {
   border: 1px solid #28282E;
-  margin: 0 10px;
+  margin: 0 10px 10px;
   box-shadow: inset 1px 2px 5px #28282E, inset -1px -2px 5px #28282E;
   border-radius: 3px;
   clear: both;
+  text-align: left;
+}
+.main-pane .markdown {
+  padding: 10px;
+  font-size: 12px;
+}
+.main-pane .markdown h1 { font-size: 1.6em; }
+.main-pane .markdown h2 { font-size: 1.5em; }
+.main-pane .markdown h3 { font-size: 1.4em; }
+.main-pane .markdown h4 { font-size: 1.3em; }
+.main-pane .markdown h5 { font-size: 1.2em; }
+.main-pane .markdown h6 { font-size: 1.1em; }
+
+.main-pane .markdown ul {
+  -webkit-padding-start: 20px;
+}
+.main-pane .markdown ul li {
+  list-style: disc;
 }
 
-.main-pane .contents .language-graph {
+.main-pane .markdown pre {
+  background-color: #4C535E;
+  border: 1px solid #59626F;
+  border-radius: 3px;
+  padding: 2px 4px;
+}
+.main-pane .markdown pre code {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  word-wrap: break-word;
+}
+.main-pane .markdown code {
+  background-color: #4C535E;
+  border: 1px solid #59626F;
+  border-radius: 3px;
+  padding: 0 3px 1px;
+  font-size: 0.8em;
+}
+
+.main-pane .repo-extra .language-graph {
   clear: both;
   margin: 0 10px;
   color: #E7F0EC;
-  font-size: 10px;
+  font-size: 8px;
 }
-.main-pane .contents .language-graph ul {
+.main-pane .repo-extra .language-graph ul {
   float: left;
   width: 100%;
   border-radius: 3px;
   overflow: hidden;
 }
-.main-pane .contents .language-graph li {
+.main-pane .repo-extra .language-graph li {
   float: left;
   text-align: left;
   height: 14px;
+  line-height: 14px;
 }
-.main-pane .contents .language-graph li span {
+.main-pane .repo-extra .language-graph li span {
   margin-left: 3px;
 }
-.main-pane .contents .repo-info {
+.main-pane .repo-extra .repo-info {
   margin: 5px;
   font-size: 10px;
   text-align: left;
   padding: 0 10px;
   float: left;
-  width: 100%;
+  width: 90%;
 }
-.main-pane .contents .repo-info i {
+.main-pane .repo-extra .repo-info i {
   font-size: 9px;
 }
-.main-pane .contents .repo-info li {
+.main-pane .repo-extra .repo-info li {
   float: left;
   width: 33%;
-
 }

@@ -92,6 +92,13 @@ angular.module('githug')
           repoName: repoName,
           access_token: env.user('token')
         });
+      },
+      RepoReadme: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/readme', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
       }
     };
   });
