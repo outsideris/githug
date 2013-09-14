@@ -21,4 +21,9 @@ angular.module('githug')
       // TODO: check why this filter is called multiple times
       return sha ? sha.substr(0, 10) : sha;
     };
+  })
+  .filter('fromNow', function() {
+    return function(date) {
+      return moment(date).fromNow();
+    }
   });

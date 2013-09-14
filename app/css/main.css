@@ -350,7 +350,6 @@ header .rightButton:after {
 }
 
 .timeline time {
-  font-size: 7px;
   float: right;
   margin-top: 2px;
 }
@@ -736,6 +735,9 @@ ul[data-liffect="slideLeft"].play li {
   clear: both;
   text-align: left;
 }
+.main-pane time {
+  font-size: 0.5em;
+}
 .main-pane .markdown {
   padding: 10px;
   font-size: 12px;
@@ -821,4 +823,7 @@ ul[data-liffect="slideLeft"].play li {
   height: 10px;
   border-radius: 5px;
   vertical-align: middle;
+}
+.main-pane .commits time {
+  font-size: 0.8em;
 }

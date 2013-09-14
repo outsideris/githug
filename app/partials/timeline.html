@@ -24,7 +24,7 @@
         <a href="#/users/{{t.actor.login}}" class="author">
           <span>{{t.actor.login}}</span>
         </a>
-        <time>{{t.created_at | date:'short'}}</time>
+        <time>{{t.created_at | fromNow}}</time>
 
         <ng-switch on="t.type">
           <span ng-switch-when="CreateEvent" class="description">
