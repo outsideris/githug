@@ -18,6 +18,7 @@ angular.module('githug')
   })
   .filter('shortSha', function() {
     return function(sha) {
-      return sha.substr(0, 10);
+      // TODO: check why this filter is called multiple times
+      return sha ? sha.substr(0, 10) : sha;
     };
   });

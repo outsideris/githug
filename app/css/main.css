@@ -810,3 +810,15 @@ ul[data-liffect="slideLeft"].play li {
   float: left;
   width: 33%;
 }
+
+.main-pane .commits {
+  font-size: 10px;
+  text-align: left;
+  padding: 0 10px 5px;
+}
+.main-pane .commits .avatar {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  vertical-align: middle;
+}

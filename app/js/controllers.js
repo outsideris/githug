@@ -115,7 +115,8 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
       RepoBranches = githubService.RepoBranches($routeParams.userId, $routeParams.repoName),
       RepoTags = githubService.RepoTags($routeParams.userId, $routeParams.repoName),
       RepoContributors = githubService.RepoContributors($routeParams.userId, $routeParams.repoName),
-      RepoReadme = githubService.RepoReadme($routeParams.userId, $routeParams.repoName);
+      RepoReadme = githubService.RepoReadme($routeParams.userId, $routeParams.repoName),
+      RepoCommits = githubService.RepoCommits($routeParams.userId, $routeParams.repoName);
 
   $scope.myWatchCount = 0;
 
@@ -283,5 +284,17 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
     });
 
     $scope.readme = marked(content.join(''));
+  });
+
+  // get commits
+  RepoCommits.query(function(data) {
+    if (data.length) {
+      $scope.lastestCommit = {
+        msg: data[0].commit.message,
+        sha: data[0].sha,
+        author: data[0].committer,
+        created_at: data[0].commit.committer.date
+      };
+    }
   });
 }

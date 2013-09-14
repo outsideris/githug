@@ -54,6 +54,17 @@
       </div>
     </div>
     <div class="contents">
+      <div class="commits" ng-show="lastestCommit.sha">
+        last commit: {{lastestCommit.sha | shortSha}}
+        authored by
+        <a href="#/users/{{lastestCommit.author.login}}">
+          <img ng-src="{{lastestCommit.author.avatar_url}}" fallback-avatar="{{lastestCommit.author.gravatar_id}}" class="avatar">
+          {{lastestCommit.author.login}}
+        </a>
+        {{lastestCommit.created_at | date:'short'}}
+        <br>
+        {{lastestCommit.msg}}
+      </div>
       <div class="section markdown" ng-bind-html-unsafe="readme">
       </div>
     </div>

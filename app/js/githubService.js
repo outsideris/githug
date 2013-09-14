@@ -99,6 +99,13 @@ angular.module('githug')
           repoName: repoName,
           access_token: env.user('token')
         });
+      },
+      RepoCommits: function(ownerId, repoName) {
+        return $resource('https://api.github.com/repos/:ownerId/:repoName/commits', {
+          ownerId: ownerId,
+          repoName: repoName,
+          access_token: env.user('token')
+        });
       }
     };
   });
