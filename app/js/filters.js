@@ -17,9 +17,10 @@ angular.module('githug')
     };
   })
   .filter('shortSha', function() {
-    return function(sha) {
+    return function(sha, length) {
+      var length = length || 10;
       // TODO: check why this filter is called multiple times
-      return sha ? sha.substr(0, 10) : sha;
+      return sha ? sha.substr(0, length) : sha;
     };
   })
   .filter('fromNow', function() {

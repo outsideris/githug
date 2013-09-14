@@ -55,7 +55,7 @@
     </div>
     <div class="contents">
       <div class="commits" ng-show="lastestCommit.sha">
-        last commit: {{lastestCommit.sha | shortSha}}
+        last commit: {{lastestCommit.sha | shortSha:7}}
         authored by
         <a href="#/users/{{lastestCommit.author.login}}">
           <img ng-src="{{lastestCommit.author.avatar_url}}" fallback-avatar="{{lastestCommit.author.gravatar_id}}" class="avatar">
