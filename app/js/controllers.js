@@ -325,7 +325,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
         splittedContent = data.content.split('\n');
 
     splittedContent.forEach(function(line) {
-      content.push(atob(line));
+      content.push(Base64.decode(line));
     });
 
     $scope.readme = marked(content.join(''));
