@@ -4,6 +4,16 @@
  * Licensed under the MIT license.
  * <http://outsider.mit-license.org/>
  */
+function MainCtrl($scope) {
+  $scope.openLeftMenu = function() {
+    $scope.LeftMenuOpened = true;
+  };
+
+  $scope.closeSideMenu = function() {
+    $scope.LeftMenuOpened = false;
+  };
+}
+
 function SignInCtrl($scope) {
   'use strict';
   OAuth.initialize('UVd2jSn4mQPcjwjVBONaPoYgcfA');
@@ -38,14 +48,6 @@ function TimelineCtrl($scope, githubService) {
     });
   };
 
-  $scope.openLeftMenu = function() {
-    $scope.openSideMenu = true;
-  };
-
-  $scope.closeSideMenu = function() {
-    $scope.openSideMenu = false;
-  };
-
   $scope.toggleSearchBar = function() {
     if ($scope.searchBar) {
       $scope.searchBar = '';
@@ -72,7 +74,7 @@ function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubServ
       $scope.setSlide();
     });
 
-    $scope.$watch('openSideMenu', function(newValue, oldValue) {
+    $scope.$watch('LeftMenuOpened', function(newValue, oldValue) {
       if (newValue) {
         $scope.playSlide();
       } else if (!newValue && oldValue){
