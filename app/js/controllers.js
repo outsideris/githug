@@ -62,7 +62,7 @@ function TimelineCtrl($scope, githubService) {
   };
 }
 
-function SideMenuCtrl($scope, $location) {
+function SideMenuCtrl($scope, $location, $timeout) {
   $scope.select = function(event) {
     var tg$ = $(event.target);
     tg$.closest('.sidemenu').find('.menu').removeClass('selected');
@@ -70,13 +70,26 @@ function SideMenuCtrl($scope, $location) {
   };
 
   $scope.selected = function(event) {
+    event.stopPropagation();
+
     var tg$ = $(event.target);
     tg$.closest('.sidemenu').find('.menu').removeClass('selected');
 
     tg$.addClass('selected');
-    if(tg$.attr('path')) {
+    var newPath = tg$.attr('path');
+    if (newPath) {
       $scope.$apply(function() {
-        $location.path(tg$.attr('path'));
+        // prevent wrong click!!
+        // since click event take 0.3s, click event occured after closeSideMenu
+        // without 300ms delay.
+        $timeout(function() {
+          $scope.closeSideMenu();
+          if ($location.path() !== newPath) {
+            $timeout(function() {
+              $location.path(newPath);
+            }, 300);
+          }
+        }, 300);
       });
     }
   };
@@ -87,7 +100,7 @@ function SideMenuCtrl($scope, $location) {
 }
 
 function LeftSideMenuCtrl($scope, $timeout, $location, env, githubService) {
-  angular.extend(this, new SideMenuCtrl($scope, $location));
+  angular.extend(this, new SideMenuCtrl($scope, $location, $timeout));
 
   $timeout(function() {
     $scope.userName = env.user('name');
@@ -115,9 +128,8 @@ function LeftSideMenuCtrl($scope, $timeout, $location, env, githubService) {
   }, 1000);
 }
 
-
 function RightSideMenuCtrl($scope, $timeout, $location) {
-  angular.extend(this, new SideMenuCtrl($scope, $location));
+  angular.extend(this, new SideMenuCtrl($scope, $location, $timeout));
 
   $timeout(function() {
     $scope.$watch('branches', function(newValue, oldValue) {
