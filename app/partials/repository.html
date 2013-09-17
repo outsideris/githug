@@ -13,7 +13,7 @@
   </header>
   <section class="main-pane" pull-to-refresh>
     <div class="head">
-      <h2>{{repo.full_name}}<span> :{{repo.default_branch}}</span></h2>
+      <h2>{{repo.full_name}}</h2>
       <p class="repo-desc">{{repo.description}} <a ng-href="{{repo.homepage}}">{{repo.homepage}}</a></p>
     </div>
     <div class="repo-extra">
@@ -54,6 +54,7 @@
       </div>
     </div>
     <div class="contents">
+      <div class="branch-title bold">{{repo.default_branch}} branch</div>
       <div class="commits" ng-show="lastestCommit.sha">
         last commit: {{lastestCommit.sha | shortSha:7}}
         authored by
