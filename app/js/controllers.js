@@ -11,6 +11,11 @@ function MainCtrl($scope) {
 
   $scope.closeSideMenu = function() {
     $scope.LeftMenuOpened = false;
+    $scope.RightMenuOpened = false;
+  };
+
+  $scope.openRightMenu = function() {
+    $scope.RightMenuOpened = true;
   };
 }
 
@@ -105,9 +110,48 @@ function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubServ
   }, 1000);
 }
 
+
+function RightSideMenuCtrl($scope, $timeout, $element, $location) {
+  $timeout(function() {
+    $scope.$watch('branches', function(newValue, oldValue) {
+      $scope.setSlide();
+    });
+
+    $scope.$watch('RightMenuOpened ', function(newValue, oldValue) {
+      if (newValue) {
+        $scope.playSlide();
+      } else if (!newValue && oldValue){
+        $scope.resetSlide();
+      }
+    });
+
+    $scope.select = function(event) {
+      $element.find('.menu').removeClass('selected');
+      $(event.target).addClass('selected');
+    };
+
+    $scope.selected = function(event) {
+      $element.find('.menu').removeClass('selected');
+
+      var tg$ = $(event.target);
+      tg$.addClass('selected');
+      if(tg$.attr('path')) {
+        $scope.$apply(function() {
+          $location.path(tg$.attr('path'));
+        });
+      }
+    };
+
+    $scope.beforeScroll = function(event, elem) {
+      elem.find('.menu').removeClass('selected');
+    };
+  }, 1000);
+}
+
 function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
   'use strict';
   $scope.title = "Repo / Home";
+  $scope.homePath = "/repos/" + $routeParams.userId + "/" + $routeParams.repoName;
 
   var Repository = githubService.Repository($routeParams.userId, $routeParams.repoName),
       Star = githubService.Star($routeParams.userId, $routeParams.repoName),
@@ -264,6 +308,7 @@ function RepositoryCtrl($scope, $routeParams, githubService, commonService) {
   // branches
   RepoBranches.query(function(data) {
     $scope.branchCount = data.length;
+    $scope.branches = data;
   });
 
   // tags
