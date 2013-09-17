@@ -9,7 +9,7 @@ angular.module('githug')
 
     return {
       parseLinkHeader: function(header) {
-        if (header.length == 0) {
+        if (header.length === 0) {
           throw new Error("input must not be of zero length");
         }
 
@@ -19,7 +19,7 @@ angular.module('githug')
         // Parse each part into a named link
         _.each(parts, function(p) {
           var section = p.split(';');
-          if (section.length != 2) {
+          if (section.length !== 2) {
             throw new Error("section could not be split on ';'");
           }
           var url = section[0].replace(/<(.*)>/, '$1').trim();

@@ -18,7 +18,7 @@ angular.module('githug')
   })
   .filter('shortSha', function() {
     return function(sha, length) {
-      var length = length || 10;
+      length = length || 10;
       // TODO: check why this filter is called multiple times
       return sha ? sha.substr(0, length) : sha;
     };
@@ -26,5 +26,5 @@ angular.module('githug')
   .filter('fromNow', function() {
     return function(date) {
       return moment(date).fromNow();
-    }
+    };
   });

@@ -62,7 +62,33 @@ function TimelineCtrl($scope, githubService) {
   };
 }
 
-function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubService) {
+function SideMenuCtrl($scope, $location) {
+  $scope.select = function(event) {
+    var tg$ = $(event.target);
+    tg$.closest('.sidemenu').find('.menu').removeClass('selected');
+    tg$.addClass('selected');
+  };
+
+  $scope.selected = function(event) {
+    var tg$ = $(event.target);
+    tg$.closest('.sidemenu').find('.menu').removeClass('selected');
+
+    tg$.addClass('selected');
+    if(tg$.attr('path')) {
+      $scope.$apply(function() {
+        $location.path(tg$.attr('path'));
+      });
+    }
+  };
+
+  $scope.beforeScroll = function(event, elem) {
+    elem.find('.menu').removeClass('selected');
+  };
+}
+
+function LeftSideMenuCtrl($scope, $timeout, $location, env, githubService) {
+  angular.extend(this, new SideMenuCtrl($scope, $location));
+
   $timeout(function() {
     $scope.userName = env.user('name');
     $scope.avatar = env.user('avatar');
@@ -75,7 +101,7 @@ function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubServ
       $scope.orgs = orgs;
     });
 
-    $scope.$watch('repos && orgs', function(newValue, oldValue) {
+    $scope.$watch('repos && orgs', function() {
       $scope.setSlide();
     });
 
@@ -86,32 +112,13 @@ function LeftSideMenuCtrl($scope, $timeout, $element, $location, env, githubServ
         $scope.resetSlide();
       }
     });
-
-    $scope.select = function(event) {
-      $element.find('.menu').removeClass('selected');
-      $(event.target).addClass('selected');
-    };
-
-    $scope.selected = function(event) {
-      $element.find('.menu').removeClass('selected');
-
-      var tg$ = $(event.target);
-      tg$.addClass('selected');
-      if(tg$.attr('path')) {
-        $scope.$apply(function() {
-          $location.path(tg$.attr('path'));
-        });
-      }
-    };
-
-    $scope.beforeScroll = function(event, elem) {
-      elem.find('.menu').removeClass('selected');
-    };
   }, 1000);
 }
 
 
-function RightSideMenuCtrl($scope, $timeout, $element, $location) {
+function RightSideMenuCtrl($scope, $timeout, $location) {
+  angular.extend(this, new SideMenuCtrl($scope, $location));
+
   $timeout(function() {
     $scope.$watch('branches', function(newValue, oldValue) {
       $scope.setSlide();
@@ -124,27 +131,6 @@ function RightSideMenuCtrl($scope, $timeout, $element, $location) {
         $scope.resetSlide();
       }
     });
-
-    $scope.select = function(event) {
-      $element.find('.menu').removeClass('selected');
-      $(event.target).addClass('selected');
-    };
-
-    $scope.selected = function(event) {
-      $element.find('.menu').removeClass('selected');
-
-      var tg$ = $(event.target);
-      tg$.addClass('selected');
-      if(tg$.attr('path')) {
-        $scope.$apply(function() {
-          $location.path(tg$.attr('path'));
-        });
-      }
-    };
-
-    $scope.beforeScroll = function(event, elem) {
-      elem.find('.menu').removeClass('selected');
-    };
   }, 1000);
 }
 
